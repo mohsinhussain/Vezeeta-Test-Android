@@ -15,8 +15,8 @@
  */
 package com.mohsin.vezeeta.features.characters
 
-import android.support.v4.app.FragmentActivity
-import android.support.v4.view.animation.FastOutSlowInInterpolator
+import androidx.fragment.app.FragmentActivity
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import android.transition.Fade
 import android.transition.TransitionManager
 import android.view.View

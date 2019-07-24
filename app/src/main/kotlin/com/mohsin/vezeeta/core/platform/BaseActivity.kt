@@ -16,7 +16,7 @@
 package com.mohsin.vezeeta.core.platform
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.mohsin.vezeeta.R.id
 import com.mohsin.vezeeta.R.layout
 import com.mohsin.vezeeta.core.extension.inTransaction

@@ -15,7 +15,7 @@
  */
 package com.mohsin.vezeeta.features.characters
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.mohsin.vezeeta.features.characters.GetMovieDetails.Params
 import com.mohsin.vezeeta.core.platform.BaseViewModel
 import javax.inject.Inject

@@ -15,7 +15,7 @@
  */
 package com.mohsin.vezeeta.core.platform
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.mohsin.vezeeta.AndroidTest
 import com.mohsin.vezeeta.core.exception.Failure
 import com.mohsin.vezeeta.core.exception.Failure.NetworkConnection

@@ -4,7 +4,7 @@ import com.mohsin.vezeeta.core.interactor.UseCase
 import javax.inject.Inject
 
 class GetCharacter
-@Inject constructor(private val moviesRepository: MoviesRepository) : UseCase<List<CharacterEntity>, UseCase.None>() {
+@Inject constructor(private val charactersRepository: CharactersRepository) : UseCase<List<CharacterEntity>, UseCase.None>() {
 
-    override suspend fun run(params: None) = moviesRepository.characters()
+    override suspend fun run(params: None) = charactersRepository.characters()
 }

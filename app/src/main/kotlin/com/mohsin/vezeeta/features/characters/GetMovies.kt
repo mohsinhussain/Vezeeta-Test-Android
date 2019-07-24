@@ -20,7 +20,7 @@ import com.mohsin.vezeeta.core.interactor.UseCase.None
 import javax.inject.Inject
 
 class GetMovies
-@Inject constructor(private val moviesRepository: MoviesRepository) : UseCase<List<Movie>, None>() {
+@Inject constructor(private val charactersRepository: CharactersRepository) : UseCase<List<Movie>, None>() {
 
-    override suspend fun run(params: None) = moviesRepository.movies()
+    override suspend fun run(params: None) = charactersRepository.movies()
 }

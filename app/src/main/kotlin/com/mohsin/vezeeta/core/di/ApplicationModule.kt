@@ -15,10 +15,13 @@
  */
 package com.mohsin.vezeeta.core.di
 
+import android.app.Application
 import android.content.Context
+import androidx.room.Room
 import com.mohsin.vezeeta.AndroidApplication
 import com.mohsin.vezeeta.BuildConfig
-import com.mohsin.vezeeta.features.characters.MoviesRepository
+import com.mohsin.vezeeta.core.db.Database
+import com.mohsin.vezeeta.features.characters.CharactersRepository
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -50,5 +53,10 @@ class ApplicationModule(private val application: AndroidApplication) {
         return okHttpClientBuilder.build()
     }
 
-    @Provides @Singleton fun provideMoviesRepository(dataSource: MoviesRepository.Network): MoviesRepository = dataSource
+    @Provides
+    @Singleton
+    fun provideAssetsDatabase(app: Application): Database =
+            Room.databaseBuilder(app, Database::class.java, "assets_db").fallbackToDestructiveMigration().build()
+
+    @Provides @Singleton fun provideMoviesRepository(dataSource: CharactersRepository.Network): CharactersRepository = dataSource
 }

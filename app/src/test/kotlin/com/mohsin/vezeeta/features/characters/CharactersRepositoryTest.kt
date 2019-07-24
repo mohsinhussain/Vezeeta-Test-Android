@@ -16,7 +16,7 @@
 package com.mohsin.vezeeta.features.characters
 
 import com.mohsin.vezeeta.UnitTest
-import com.mohsin.vezeeta.features.characters.MoviesRepository.Network
+import com.mohsin.vezeeta.features.characters.CharactersRepository.Network
 import com.mohsin.vezeeta.core.exception.Failure.NetworkConnection
 import com.mohsin.vezeeta.core.exception.Failure.ServerError
 import com.mohsin.vezeeta.core.extension.empty
@@ -34,9 +34,9 @@ import org.mockito.Mock
 import retrofit2.Call
 import retrofit2.Response
 
-class MoviesRepositoryTest : UnitTest() {
+class CharactersRepositoryTest : UnitTest() {
 
-    private lateinit var networkRepository: MoviesRepository.Network
+    private lateinit var networkRepository: CharactersRepository.Network
 
     @Mock private lateinit var networkHandler: NetworkHandler
     @Mock private lateinit var service: CharactersService

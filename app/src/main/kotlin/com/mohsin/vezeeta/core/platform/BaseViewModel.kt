@@ -15,8 +15,8 @@
  */
 package com.mohsin.vezeeta.core.platform
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.mohsin.vezeeta.core.exception.Failure
 
 /**

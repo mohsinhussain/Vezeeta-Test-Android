@@ -16,7 +16,7 @@
 package com.mohsin.vezeeta.core.navigation
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.mohsin.vezeeta.AndroidApplication
 import com.mohsin.vezeeta.core.di.ApplicationComponent
 import javax.inject.Inject

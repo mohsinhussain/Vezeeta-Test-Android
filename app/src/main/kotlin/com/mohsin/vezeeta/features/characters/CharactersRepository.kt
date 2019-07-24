@@ -25,18 +25,18 @@ import com.mohsin.vezeeta.core.platform.NetworkHandler
 import retrofit2.Call
 import javax.inject.Inject
 
-interface MoviesRepository {
+interface CharactersRepository {
     fun movies(): Either<Failure, List<Movie>>
     fun characters(): Either<Failure, List<CharacterEntity>>
     fun movieDetails(movieId: Int): Either<Failure, MovieDetails>
 
     class Network
     @Inject constructor(private val networkHandler: NetworkHandler,
-                        private val service: CharactersService) : MoviesRepository {
+                        private val onlineService: CharactersService) : CharactersRepository {
         override fun characters(): Either<Failure, List<CharacterEntity>> {
             return when (networkHandler.isConnected) {
                 true -> request(
-                        service.characters(), {
+                        onlineService.characters(), {
                     it.data.results.map {
                         it
                     }
@@ -48,14 +48,14 @@ interface MoviesRepository {
 
         override fun movies(): Either<Failure, List<Movie>> {
             return when (networkHandler.isConnected) {
-                true -> request(service.movies(), { it.map { it.toMovie() } }, emptyList())
+                true -> request(onlineService.movies(), { it.map { it.toMovie() } }, emptyList())
                 false, null -> Left(NetworkConnection)
             }
         }
 
         override fun movieDetails(movieId: Int): Either<Failure, MovieDetails> {
             return when (networkHandler.isConnected) {
-                true -> request(service.movieDetails(movieId), { it.toMovieDetails() }, MovieDetailsEntity.empty())
+                true -> request(onlineService.movieDetails(movieId), { it.toMovieDetails() }, MovieDetailsEntity.empty())
                 false, null -> Left(NetworkConnection)
             }
         }

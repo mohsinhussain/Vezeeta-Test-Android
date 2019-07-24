@@ -19,7 +19,7 @@ import com.mohsin.vezeeta.AndroidTest
 import com.mohsin.vezeeta.core.exception.Failure
 import com.mohsin.vezeeta.core.functional.Either
 import com.mohsin.vezeeta.core.functional.Either.Right
-import kotlinx.coroutines.experimental.runBlocking
+import kotlinx.coroutines.runBlocking
 import org.amshove.kluent.shouldEqual
 import org.junit.Test
 

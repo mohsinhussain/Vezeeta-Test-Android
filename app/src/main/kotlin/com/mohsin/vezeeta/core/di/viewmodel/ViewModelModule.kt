@@ -15,8 +15,8 @@
  */
 package com.mohsin.vezeeta.core.di.viewmodel
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.mohsin.vezeeta.features.characters.MovieDetailsViewModel
 import com.mohsin.vezeeta.features.characters.MoviesViewModel
 import dagger.Binds
