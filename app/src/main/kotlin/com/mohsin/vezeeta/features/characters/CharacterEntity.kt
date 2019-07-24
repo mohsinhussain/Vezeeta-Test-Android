@@ -1,5 +1,5 @@
 package com.mohsin.vezeeta.features.characters
 
-class CharacterEntity (var id: Int = 0) {
+data class CharacterEntity (val id: Int, val name: String, val description: String, val modified: String, val thumbnail: Thmbnail, val resourceURI: String) {
 
 }

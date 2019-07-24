@@ -37,7 +37,7 @@ class MoviesViewModel
     }
 
     private fun handleCharactersList(characters: List<CharacterEntity>) {
-        this.movies.value = characters.map { MovieView(it.id, "") }
+        this.movies.value = characters.map { MovieView(it.id, it.thumbnail.path+"."+it.thumbnail.extension) }
     }
 
 
