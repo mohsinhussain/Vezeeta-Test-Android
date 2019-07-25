@@ -21,7 +21,9 @@ import androidx.room.Room
 import com.mohsin.vezeeta.AndroidApplication
 import com.mohsin.vezeeta.BuildConfig
 import com.mohsin.vezeeta.core.db.Database
+import com.mohsin.vezeeta.features.characters.CharactersDao
 import com.mohsin.vezeeta.features.characters.CharactersRepository
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -53,10 +55,15 @@ class ApplicationModule(private val application: AndroidApplication) {
         return okHttpClientBuilder.build()
     }
 
+
     @Provides
     @Singleton
-    fun provideAssetsDatabase(app: Application): Database =
-            Room.databaseBuilder(app, Database::class.java, "assets_db").fallbackToDestructiveMigration().build()
+    fun providesDatabase(): Database =
+            Room.databaseBuilder(application, Database::class.java, "marvel_db").fallbackToDestructiveMigration().build()
 
     @Provides @Singleton fun provideMoviesRepository(dataSource: CharactersRepository.Network): CharactersRepository = dataSource
+
+    @Provides
+    @Singleton
+    fun provideCharactersDao(db: Database): CharactersDao = db.charactersDao()
 }

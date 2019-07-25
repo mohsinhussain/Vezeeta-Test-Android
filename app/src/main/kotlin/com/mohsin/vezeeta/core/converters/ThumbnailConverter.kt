@@ -1,4 +1,4 @@
-package com.mohsin.vezeeta.core.di.converters
+package com.mohsin.vezeeta.core.converters
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson

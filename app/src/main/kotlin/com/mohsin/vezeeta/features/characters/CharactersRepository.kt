@@ -31,18 +31,20 @@ interface CharactersRepository {
     fun movieDetails(movieId: Int): Either<Failure, MovieDetails>
 
     class Network
-    @Inject constructor(private val networkHandler: NetworkHandler,
+    @Inject constructor(private val networkHandler: NetworkHandler, private val offlineService: CharactersOfflineService,
                         private val onlineService: CharactersService) : CharactersRepository {
         override fun characters(): Either<Failure, List<CharacterEntity>> {
             return when (networkHandler.isConnected) {
                 true -> request(
                         onlineService.characters(), {
                     it.data.results.map {
-                        it
+                        saveCharacterToDB(it)
                     }
                 },
                         CharactersResponse())
-                false, null -> Left(NetworkConnection)
+                false, null -> {
+                    Right(offlineService.characters())
+                }//Left(NetworkConnection)
             }
         }
 
@@ -70,6 +72,12 @@ interface CharactersRepository {
             } catch (exception: Throwable) {
                 Left(ServerError)
             }
+        }
+
+        fun saveCharacterToDB(character: CharacterEntity): CharacterEntity{
+            val id = offlineService.addCharacter(character)
+            println("Character added with id: "+ id)
+            return character
         }
     }
 }

@@ -11,11 +11,11 @@ import androidx.room.Query
 interface CharactersDao {
 
     @Query("SELECT * FROM characterentity")
-    fun getAllCharacters(): LiveData<List<CharacterEntity>>
+    fun getAllCharacters(): List<CharacterEntity>
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addCharacter(character: CharacterEntity)
+    fun addCharacter(character: CharacterEntity): Long
 
 
 }
