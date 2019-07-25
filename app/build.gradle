@@ -91,6 +91,7 @@ dependencies {
   implementation applicationDependencies.dagger
   implementation applicationDependencies.retrofit
   implementation applicationDependencies.okhttpLoggingInterceptor
+  debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 
   //Unit/Integration tests dependencies
   testImplementation unitTestDependencies.kotlin
