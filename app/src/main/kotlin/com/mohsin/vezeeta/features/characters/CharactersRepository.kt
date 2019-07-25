@@ -43,7 +43,14 @@ interface CharactersRepository {
                 },
                         CharactersResponse())
                 false, null -> {
-                    Right(offlineService.characters())
+                    val list: List<CharacterEntity> = offlineService.characters()
+                    if(list.size>0){
+                        return Right(list)
+                    }
+                    else{
+                        return Left(NetworkConnection)
+                    }
+
                 }//Left(NetworkConnection)
             }
         }
