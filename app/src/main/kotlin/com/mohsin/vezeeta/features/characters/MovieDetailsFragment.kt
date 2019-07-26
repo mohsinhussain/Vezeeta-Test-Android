@@ -114,7 +114,7 @@ class MovieDetailsFragment : BaseFragment() {
         when (failure) {
             is NetworkConnection -> { notify(R.string.failure_network_connection); close() }
             is ServerError -> { notify(R.string.failure_server_error); close() }
-            is NonExistentMovie -> { notify(R.string.failure_movie_non_existent); close() }
+            is NonExistentMovie -> { notify(R.string.failure_character_non_existent); close() }
         }
     }
 }

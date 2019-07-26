@@ -29,7 +29,7 @@ import kotlin.properties.Delegates
 class MoviesAdapter
 @Inject constructor() : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
 
-    internal var collection: List<MovieView> by Delegates.observable(emptyList()) {
+    internal var collection: ArrayList<MovieView> by Delegates.observable(ArrayList<MovieView>()) {
         _, _, _ -> notifyDataSetChanged()
     }
 
@@ -46,6 +46,7 @@ class MoviesAdapter
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(movieView: MovieView, clickListener: (MovieView, Navigator.Extras) -> Unit) {
             itemView.moviePoster.loadFromUrl(movieView.poster)
+            itemView.nameTextView.text = movieView.name
             itemView.setOnClickListener { clickListener(movieView, Navigator.Extras(itemView.moviePoster)) }
         }
     }

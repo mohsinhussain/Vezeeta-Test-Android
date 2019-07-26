@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView android:id="@+id/movieCard"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    card_view:cardBackgroundColor="@color/colorPrimary"
     >
-
   <RelativeLayout
       android:id="@+id/mainContainer"
       android:layout_width="match_parent"
-      android:layout_height="160dp">
+      android:layout_height="300dp">
 
     <ImageView
         android:id="@+id/overlay"
@@ -27,22 +28,22 @@
         android:id="@+id/textBG"
         android:src="@drawable/bg_row_title"
         android:scaleType="fitEnd"
-        android:layout_width="173dp"
-        android:layout_height="40dp"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="30dp"
-        android:layout_marginLeft="24dp"
+        android:layout_marginBottom="60dp"
+        android:layout_marginStart="50dp"
         />
 
     <TextView
         android:id="@+id/nameTextView"
         android:textColor="#333"
         android:gravity="center"
-        android:textSize="20sp"
+        android:textSize="32sp"
         android:textStyle="bold"
         android:lines="1"
-        android:ellipsize="end"
         android:padding="5dp"
+        android:ellipsize="end"
         android:layout_alignStart="@+id/textBG"
         android:layout_alignEnd="@id/textBG"
         android:layout_alignTop="@+id/textBG"

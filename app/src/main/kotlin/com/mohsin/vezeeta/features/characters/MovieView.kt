@@ -19,17 +19,18 @@ import android.os.Parcel
 import com.mohsin.vezeeta.core.platform.KParcelable
 import com.mohsin.vezeeta.core.platform.parcelableCreator
 
-data class MovieView(val id: Int, val poster: String) : KParcelable {
+data class MovieView(val id: Int, val poster: String, val name: String) : KParcelable {
     companion object {
         @JvmField val CREATOR = parcelableCreator(::MovieView)
     }
 
-    constructor(parcel: Parcel) : this(parcel.readInt(), parcel.readString())
+    constructor(parcel: Parcel) : this(parcel.readInt(), parcel.readString(), parcel.readString())
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
         with(dest) {
             writeInt(id)
             writeString(poster)
+            writeString(name)
         }
     }
 }

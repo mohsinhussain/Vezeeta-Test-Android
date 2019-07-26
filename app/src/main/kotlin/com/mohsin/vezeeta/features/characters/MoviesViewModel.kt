@@ -21,23 +21,23 @@ import com.mohsin.vezeeta.core.platform.BaseViewModel
 import javax.inject.Inject
 
 class MoviesViewModel
-@Inject constructor(private val getMovies: GetMovies, private val getCharacters: GetCharacter) : BaseViewModel() {
+@Inject constructor(private val getCharacters: GetCharacter, private val getMovieDetails: GetMovieDetails) : BaseViewModel() {
 
     var movies: MutableLiveData<List<MovieView>> = MutableLiveData()
 
-    fun loadMovies() = getMovies(None()) { it.either(::handleFailure, ::handleMovieList) }
+//    fun loadMovies() = getMovies(None()) { it.either(::handleFailure, ::handleMovieList) }
 
-    private fun handleMovieList(movies: List<Movie>) {
-        this.movies.value = movies.map { MovieView(it.id, it.poster) }
-    }
+//    private fun handleMovieList(movies: List<Movie>) {
+//        this.movies.value = movies.map { MovieView(it.id, it.poster, it.poster) }
+//    }
 
 
-    fun loadCharacters() = getCharacters(None()) {
+    fun loadCharacters(offset: Int) = getCharacters(GetCharacter.Params(offset)) {
         it.either(::handleFailure, ::handleCharactersList)
     }
 
     private fun handleCharactersList(characters: List<CharacterEntity>) {
-        this.movies.value = characters.map { MovieView(it.id, it.thumbnail.path+"."+it.thumbnail.extension) }
+        this.movies.value = characters.map { MovieView(it.id, it.thumbnail.path+"."+it.thumbnail.extension, it.name) }
     }
 
 

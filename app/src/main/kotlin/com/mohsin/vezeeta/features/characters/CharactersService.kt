@@ -24,7 +24,7 @@ class CharactersService
 @Inject constructor(retrofit: Retrofit) : CharactersApi {
     private val charactersApi by lazy { retrofit.create(CharactersApi::class.java) }
 
-    override fun characters() = charactersApi.characters()
+    override fun characters(limit: Int) = charactersApi.characters(limit)
     override fun movies() = charactersApi.movies()
     override fun movieDetails(movieId: Int) = charactersApi.movieDetails(movieId)
 }

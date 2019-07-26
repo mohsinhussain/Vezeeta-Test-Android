@@ -23,7 +23,7 @@ import javax.inject.Singleton
 class CharactersOfflineService
 @Inject constructor(val charactersDao: CharactersDao) {
 
-    fun characters() = charactersDao.getAllCharacters()
+    fun characters(offset: Int) = charactersDao.getAllCharacters(offset)
     fun addCharacter(character: CharacterEntity) = charactersDao.addCharacter(character).toInt()
 //    override fun movies() = charactersApi.movies()
 //    override fun movieDetails(movieId: Int) = charactersApi.movieDetails(movieId)

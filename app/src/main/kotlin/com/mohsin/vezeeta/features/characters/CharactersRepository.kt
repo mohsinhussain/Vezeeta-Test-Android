@@ -27,25 +27,27 @@ import javax.inject.Inject
 
 interface CharactersRepository {
     fun movies(): Either<Failure, List<Movie>>
-    fun characters(): Either<Failure, List<CharacterEntity>>
+    fun characters(limit: Int): Either<Failure, List<CharacterEntity>>
     fun movieDetails(movieId: Int): Either<Failure, MovieDetails>
 
     class Network
     @Inject constructor(private val networkHandler: NetworkHandler, private val offlineService: CharactersOfflineService,
                         private val onlineService: CharactersService) : CharactersRepository {
-        override fun characters(): Either<Failure, List<CharacterEntity>> {
+        override fun characters(offset: Int): Either<Failure, List<CharacterEntity>> {
             return when (networkHandler.isConnected) {
                 true -> request(
-                        onlineService.characters(), {
+                        onlineService.characters(offset), {
                     it.data.results.map {
                         saveCharacterToDB(it)
                     }
                 },
                         CharactersResponse())
                 false, null -> {
-                    val list: List<CharacterEntity> = offlineService.characters()
+                    val list: List<CharacterEntity> = offlineService.characters(offset)
                     if(list.size>0){
+                        println(list.size.toString() + " characters loaded")
                         return Right(list)
+
                     }
                     else{
                         return Left(NetworkConnection)

@@ -9,9 +9,9 @@ import androidx.room.Query
 
 @Dao
 interface CharactersDao {
-
-    @Query("SELECT * FROM characterentity")
-    fun getAllCharacters(): List<CharacterEntity>
+//@Query("SELECT * FROM user LIMIT :limit OFFSET :offset")
+    @Query("SELECT * FROM characterentity LIMIT 20 OFFSET :offset")
+    fun getAllCharacters(offset: Int): List<CharacterEntity>
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

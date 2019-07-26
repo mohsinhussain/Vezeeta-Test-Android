@@ -17,8 +17,9 @@ package com.mohsin.vezeeta.features.characters
 
 import android.os.Bundle
 import androidx.annotation.StringRes
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.mohsin.vezeeta.core.platform.BaseFragment
 import com.mohsin.vezeeta.R
 import com.mohsin.vezeeta.features.characters.MovieFailure.ListNotAvailable
@@ -30,6 +31,7 @@ import com.mohsin.vezeeta.core.extension.invisible
 import com.mohsin.vezeeta.core.extension.observe
 import com.mohsin.vezeeta.core.extension.viewModel
 import com.mohsin.vezeeta.core.extension.visible
+import com.mohsin.vezeeta.core.navigation.EndlessRecyclerViewScrollListener
 import com.mohsin.vezeeta.core.navigation.Navigator
 import kotlinx.android.synthetic.main.fragment_movies.emptyView
 import kotlinx.android.synthetic.main.fragment_movies.movieList
@@ -39,6 +41,8 @@ class MoviesFragment : BaseFragment() {
 
     @Inject lateinit var navigator: Navigator
     @Inject lateinit var moviesAdapter: MoviesAdapter
+    private var scrollListener: EndlessRecyclerViewScrollListener? = null
+    var offSet = 0
 
     private lateinit var moviesViewModel: MoviesViewModel
 
@@ -52,6 +56,8 @@ class MoviesFragment : BaseFragment() {
             observe(movies, ::renderMoviesList)
             failure(failure, ::handleFailure)
         }
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,7 +68,19 @@ class MoviesFragment : BaseFragment() {
 
 
     private fun initializeView() {
-        movieList.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+//        movieList.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+        val linearLayoutManager: LinearLayoutManager = LinearLayoutManager(activity)
+        movieList.layoutManager = linearLayoutManager
+        scrollListener = object : EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to the bottom of the list
+                offSet = offSet + 20
+                loadMoviesList()
+            }
+        }
+        // Adds the scroll listener to RecyclerView
+        movieList.addOnScrollListener(scrollListener as EndlessRecyclerViewScrollListener)
         movieList.adapter = moviesAdapter
         moviesAdapter.clickListener = { movie, navigationExtras ->
                     navigator.showMovieDetails(activity!!, movie, navigationExtras) }
@@ -73,11 +91,13 @@ class MoviesFragment : BaseFragment() {
         movieList.visible()
         showProgress()
 //        moviesViewModel.loadMovies()
-        moviesViewModel.loadCharacters()
+        moviesViewModel.loadCharacters(offSet)
     }
 
     private fun renderMoviesList(movies: List<MovieView>?) {
-        moviesAdapter.collection = movies.orEmpty()
+
+        moviesAdapter.collection.addAll(movies.orEmpty())
+        moviesAdapter.notifyDataSetChanged()
         hideProgress()
     }
 
@@ -85,13 +105,13 @@ class MoviesFragment : BaseFragment() {
         when (failure) {
             is NetworkConnection -> renderFailure(R.string.failure_network_connection)
             is ServerError -> renderFailure(R.string.failure_server_error)
-            is ListNotAvailable -> renderFailure(R.string.failure_movies_list_unavailable)
+            is ListNotAvailable -> renderFailure(R.string.failure_character_list_unavailable)
         }
     }
 
     private fun renderFailure(@StringRes message: Int) {
-        movieList.invisible()
-        emptyView.visible()
+//        movieList.invisible()
+//        emptyView.visible()
         hideProgress()
         notifyWithAction(message, R.string.action_refresh, ::loadMoviesList)
     }
