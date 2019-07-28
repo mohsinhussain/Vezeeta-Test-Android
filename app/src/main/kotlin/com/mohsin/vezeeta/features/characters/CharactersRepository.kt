@@ -28,7 +28,7 @@ import javax.inject.Inject
 interface CharactersRepository {
     fun movies(): Either<Failure, List<Movie>>
     fun characters(limit: Int): Either<Failure, List<CharacterEntity>>
-    fun movieDetails(movieId: Int): Either<Failure, MovieDetails>
+    fun characterReources(characterId: Int, resource: String): Either<Failure, List<ResourceEntity>>
 
     class Network
     @Inject constructor(private val networkHandler: NetworkHandler, private val offlineService: CharactersOfflineService,
@@ -64,10 +64,27 @@ interface CharactersRepository {
             }
         }
 
-        override fun movieDetails(movieId: Int): Either<Failure, MovieDetails> {
+        override fun characterReources(characterId: Int, resource: String): Either<Failure, List<ResourceEntity>> {
             return when (networkHandler.isConnected) {
-                true -> request(onlineService.movieDetails(movieId), { it.toMovieDetails() }, MovieDetailsEntity.empty())
-                false, null -> Left(NetworkConnection)
+                true -> request(
+                        onlineService.characterResource(characterId, resource), {
+                    it.data.results.map {
+                        saveCharacterResourceToDB(it, characterId, resource)
+                    }
+                },
+                        ResourceResponse())
+                false, null -> {
+                    val list: List<ResourceEntity> = offlineService.resources(characterId, resource)
+                    if(list.size>0){
+                        println(list.size.toString() + " resources loaded")
+                        return Right(list)
+
+                    }
+                    else{
+                        return Left(Failure.ResourceError)
+                    }
+
+                }//Left(NetworkConnection)
             }
         }
 
@@ -81,6 +98,14 @@ interface CharactersRepository {
             } catch (exception: Throwable) {
                 Left(ServerError)
             }
+        }
+
+        fun saveCharacterResourceToDB(resource: ResourceEntity, characterId: Int, resourceType: String): ResourceEntity{
+            resource.characterid = characterId
+            resource.resourceType = resourceType
+            val id = offlineService.addResource(resource)
+            println("Resource added with id: "+ id)
+            return resource
         }
 
         fun saveCharacterToDB(character: CharacterEntity): CharacterEntity{

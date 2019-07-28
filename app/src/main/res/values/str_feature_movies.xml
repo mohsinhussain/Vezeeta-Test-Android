@@ -1,10 +1,13 @@
 <resources>
     <string name="movies_screen_title">Movies</string>
     <string name="movie_details_screen_title">Movie Details</string>
-    <string name="movie_details_summary">Summary</string>
-    <string name="movie_details_cast">Cast</string>
-    <string name="movie_details_director">Director</string>
-    <string name="movie_details_year">Year</string>
+    <string name="character_details_name">NAME</string>
+    <string name="character_details_desc">DESCRIPTION</string>
+    <string name="character_details_comics">COMICS</string>
+    <string name="character_details_series">SERIES</string>
+    <string name="character_details_events">EVENTS</string>
+    <string name="character_details_links">RELATED LINKS</string>
+    <string name="character_details_stories">STORIES</string>
 
     <!-- Animations -->
     <string name="movie_transition_poster">moviePosterTransition</string>

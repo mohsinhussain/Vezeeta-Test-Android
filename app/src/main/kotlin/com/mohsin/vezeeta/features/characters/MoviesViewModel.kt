@@ -16,12 +16,11 @@
 package com.mohsin.vezeeta.features.characters
 
 import androidx.lifecycle.MutableLiveData
-import com.mohsin.vezeeta.core.interactor.UseCase.None
 import com.mohsin.vezeeta.core.platform.BaseViewModel
 import javax.inject.Inject
 
 class MoviesViewModel
-@Inject constructor(private val getCharacters: GetCharacter, private val getMovieDetails: GetMovieDetails) : BaseViewModel() {
+@Inject constructor(private val getCharacters: GetCharacter, private val getCharacterResource: GetCharacterResource) : BaseViewModel() {
 
     var movies: MutableLiveData<List<MovieView>> = MutableLiveData()
 
@@ -37,7 +36,8 @@ class MoviesViewModel
     }
 
     private fun handleCharactersList(characters: List<CharacterEntity>) {
-        this.movies.value = characters.map { MovieView(it.id, it.thumbnail.path+"."+it.thumbnail.extension, it.name) }
+        this.movies.value = characters.map { MovieView(it.id, it.name, it.description, it.thumbnail, it.comics, it.series, it.stories,
+                it.events, it.urls) }
     }
 
 

@@ -23,6 +23,7 @@ import com.mohsin.vezeeta.BuildConfig
 import com.mohsin.vezeeta.core.db.Database
 import com.mohsin.vezeeta.features.characters.CharactersDao
 import com.mohsin.vezeeta.features.characters.CharactersRepository
+import com.mohsin.vezeeta.features.characters.ResourceDao
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -66,4 +67,8 @@ class ApplicationModule(private val application: AndroidApplication) {
     @Provides
     @Singleton
     fun provideCharactersDao(db: Database): CharactersDao = db.charactersDao()
+
+    @Provides
+    @Singleton
+    fun provideResourceDao(db: Database): ResourceDao = db.resourceDao()
 }

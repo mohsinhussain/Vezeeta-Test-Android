@@ -27,12 +27,15 @@ internal interface CharactersApi {
         private const val HASH = "0d09defc15e7c90c0f281c39657268b0"
         private const val API_KEY = "71ae45daea9d85be645550b5b00c9354"
         private const val PARAM_MOVIE_ID = "movieId"
+        private const val PARAM_CHARACTER_ID = "charId"
+        private const val PARAM_RESOURCE = "resourceType"
         private const val MOVIES = "movies.json"
         private const val MOVIE_DETAILS = "movie_0{$PARAM_MOVIE_ID}.json"
         private const val CHARACTERS = "v1/public/characters?ts=$TS&hash=$HASH&apikey=$API_KEY&limit=$PARAM_LIMIT"
-    }
+        private const val RESOURCES = "v1/public/characters/{$PARAM_CHARACTER_ID}/{$PARAM_RESOURCE}?ts=$TS&hash=$HASH&apikey=$API_KEY&limit=$PARAM_LIMIT"
+    }//http://gateway.marvel.com/v1/public/characters/1009144/comics
 
     @GET(MOVIES) fun movies(): Call<List<MovieEntity>>
     @GET(CHARACTERS) fun characters(@Query("offset") limit: Int): Call<CharactersResponse>
-    @GET(MOVIE_DETAILS) fun movieDetails(@Path(PARAM_MOVIE_ID) movieId: Int): Call<MovieDetailsEntity>
+    @GET(RESOURCES) fun characterResource(@Path(PARAM_CHARACTER_ID) characterId: Int, @Path(PARAM_RESOURCE) resource: String): Call<ResourceResponse>
 }

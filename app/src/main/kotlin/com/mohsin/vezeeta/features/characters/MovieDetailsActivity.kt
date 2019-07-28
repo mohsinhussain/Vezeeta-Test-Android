@@ -22,14 +22,14 @@ import com.mohsin.vezeeta.core.platform.BaseActivity
 class MovieDetailsActivity : BaseActivity() {
 
     companion object {
-        private const val INTENT_EXTRA_PARAM_MOVIE = "com.fernandocejas.INTENT_PARAM_MOVIE"
+        private const val INTENT_EXTRA_PARAM_CHARACTER = "com.mohsin.INTENT_PARAM_CHARACTER"
 
         fun callingIntent(context: Context, movie: MovieView): Intent {
             val intent = Intent(context, MovieDetailsActivity::class.java)
-            intent.putExtra(INTENT_EXTRA_PARAM_MOVIE, movie)
+            intent.putExtra(INTENT_EXTRA_PARAM_CHARACTER, movie)
             return intent
         }
     }
 
-    override fun fragment() = MovieDetailsFragment.forMovie(intent.getParcelableExtra(INTENT_EXTRA_PARAM_MOVIE))
+    override fun fragment() = MovieDetailsFragment.forMovie(intent.getParcelableExtra(INTENT_EXTRA_PARAM_CHARACTER))
 }

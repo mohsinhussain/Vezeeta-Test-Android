@@ -123,12 +123,12 @@ class CharactersRepositoryTest : UnitTest() {
         given { movieDetailsResponse.body() }.willReturn(null)
         given { movieDetailsResponse.isSuccessful }.willReturn(true)
         given { movieDetailsCall.execute() }.willReturn(movieDetailsResponse)
-        given { service.movieDetails(1) }.willReturn(movieDetailsCall)
+        given { service.characterResource(1) }.willReturn(movieDetailsCall)
 
         val movieDetails = networkRepository.movieDetails(1)
 
         movieDetails shouldEqual Right(MovieDetails.empty())
-        verify(service).movieDetails(1)
+        verify(service).characterResource(1)
     }
 
     @Test fun `should get movie details from service`() {
@@ -138,13 +138,13 @@ class CharactersRepositoryTest : UnitTest() {
                         String.empty(), String.empty(), 0, String.empty()))
         given { movieDetailsResponse.isSuccessful }.willReturn(true)
         given { movieDetailsCall.execute() }.willReturn(movieDetailsResponse)
-        given { service.movieDetails(1) }.willReturn(movieDetailsCall)
+        given { service.characterResource(1) }.willReturn(movieDetailsCall)
 
         val movieDetails = networkRepository.movieDetails(1)
 
         movieDetails shouldEqual Right(MovieDetails(8, "title", String.empty(), String.empty(),
                 String.empty(), String.empty(), 0, String.empty()))
-        verify(service).movieDetails(1)
+        verify(service).characterResource(1)
     }
 
     @Test fun `movie details service should return network failure when no connection`() {

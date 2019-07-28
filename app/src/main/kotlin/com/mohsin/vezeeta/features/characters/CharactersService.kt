@@ -26,5 +26,5 @@ class CharactersService
 
     override fun characters(limit: Int) = charactersApi.characters(limit)
     override fun movies() = charactersApi.movies()
-    override fun movieDetails(movieId: Int) = charactersApi.movieDetails(movieId)
+    override fun characterResource(characterId: Int, resource: String) = charactersApi.characterResource(characterId, resource)
 }

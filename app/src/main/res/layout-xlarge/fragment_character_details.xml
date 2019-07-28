@@ -28,7 +28,7 @@
       <ImageView
           android:id="@+id/moviePoster"
           style="@style/MoviePoster"
-          android:layout_height="240dp"
+          android:layout_height="640dp"
           android:layout_centerHorizontal="true"
           android:fitsSystemWindows="true"
           android:scaleType="centerCrop"
@@ -58,33 +58,57 @@
 
       <TextView
           style="@style/MovieDetailsTitle"
-          android:text="@string/movie_details_summary"/>
+          android:text="@string/character_details_name"/>
       <TextView
-          android:id="@+id/movieSummary"
+          android:id="@+id/nameTextView"
           style="@style/MovieDetailsText"
           />
 
       <TextView
           style="@style/MovieDetailsTitle"
-          android:text="@string/movie_details_cast"/>
+          android:text="@string/character_details_desc"/>
       <TextView
-          android:id="@+id/movieCast"
+          android:id="@+id/descTextView"
           style="@style/MovieDetailsText"
           />
 
       <TextView
           style="@style/MovieDetailsTitle"
-          android:text="@string/movie_details_director"/>
+          android:text="@string/character_details_comics"/>
       <TextView
-          android:id="@+id/movieDirector"
+          android:id="@+id/comicsTextView"
           style="@style/MovieDetailsText"
           />
 
       <TextView
           style="@style/MovieDetailsTitle"
-          android:text="@string/movie_details_year"/>
+          android:text="@string/character_details_series"/>
       <TextView
-          android:id="@+id/movieYear"
+          android:id="@+id/seriesTextView"
+          style="@style/MovieDetailsText"
+          />
+
+      <TextView
+          style="@style/MovieDetailsTitle"
+          android:text="@string/character_details_stories"/>
+      <TextView
+          android:id="@+id/storiesTextView"
+          style="@style/MovieDetailsText"
+          />
+
+      <TextView
+          style="@style/MovieDetailsTitle"
+          android:text="@string/character_details_events"/>
+      <TextView
+          android:id="@+id/eventsTextView"
+          style="@style/MovieDetailsText"
+          />
+
+      <TextView
+          style="@style/MovieDetailsTitle"
+          android:text="@string/character_details_links"/>
+      <TextView
+          android:id="@+id/relatedLinksTextView"
           style="@style/MovieDetailsText"
           />
 

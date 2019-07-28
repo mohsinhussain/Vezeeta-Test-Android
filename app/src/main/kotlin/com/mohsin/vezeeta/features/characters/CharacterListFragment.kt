@@ -37,7 +37,7 @@ import kotlinx.android.synthetic.main.fragment_movies.emptyView
 import kotlinx.android.synthetic.main.fragment_movies.movieList
 import javax.inject.Inject
 
-class MoviesFragment : BaseFragment() {
+class CharacterListFragment : BaseFragment() {
 
     @Inject lateinit var navigator: Navigator
     @Inject lateinit var moviesAdapter: MoviesAdapter

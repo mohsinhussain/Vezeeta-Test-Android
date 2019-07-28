@@ -16,10 +16,10 @@
 package com.mohsin.vezeeta.features.characters
 
 data class MovieDetailsView(val id: Int,
-                                  val title: String,
+                                  val name: String,
                                   val poster: String,
-                                  val summary: String,
-                                  val cast: String,
-                                  val director: String,
-                                  val year: Int,
-                                  val trailer: String)
+                                  val desciption: String,
+                                  val comics: String,
+                                  val series: String,
+                                  val stories: String,
+                                  val links: String)

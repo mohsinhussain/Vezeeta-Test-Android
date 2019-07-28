@@ -25,5 +25,5 @@ class MoviesActivity : BaseActivity() {
         fun callingIntent(context: Context) = Intent(context, MoviesActivity::class.java)
     }
 
-    override fun fragment() = MoviesFragment()
+    override fun fragment() = CharacterListFragment()
 }

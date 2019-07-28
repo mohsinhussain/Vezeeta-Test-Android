@@ -60,4 +60,10 @@
         <item name="android:freezesText">true</item>
     </style>
 
+    <style name="RelatedLinksText" parent="MovieDetailsTitle">
+        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:textSize">@dimen/movie_details_text</item>
+        <item name="android:freezesText">true</item>
+    </style>
+
 </resources>

@@ -7,5 +7,9 @@
     <string name="failure_server_error">Server Error</string>
     <string name="failure_character_list_unavailable">Character Unavailable.</string>
     <string name="failure_character_non_existent">Character Not Existent.</string>
+    <string name="failure_resource_non_existent">Resource Not Existent.</string>
     <string name="failure_character_list_offline">Characters Unavailable Without Internet.</string>
+    <string name="detail">Detail</string>
+    <string name="wiki">Wiki</string>
+    <string name="comiclink">Comiclink</string>
 </resources>

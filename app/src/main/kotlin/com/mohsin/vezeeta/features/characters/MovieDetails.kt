@@ -18,17 +18,17 @@ package com.mohsin.vezeeta.features.characters
 import com.mohsin.vezeeta.core.extension.empty
 
 data class MovieDetails(val id: Int,
-                        val title: String,
+                        val name: String,
                         val poster: String,
-                        val summary: String,
-                        val cast: String,
-                        val director: String,
-                        val year: Int,
-                        val trailer: String) {
+                        val description: String,
+                        val comics: String,
+                        val series: String,
+                        val stories: String,
+                        val links: String) {
 
     companion object {
         fun empty() = MovieDetails(0, String.empty(), String.empty(), String.empty(),
-                String.empty(), String.empty(), 0, String.empty())
+                String.empty(), String.empty(), String.empty(), String.empty())
     }
 }
 
