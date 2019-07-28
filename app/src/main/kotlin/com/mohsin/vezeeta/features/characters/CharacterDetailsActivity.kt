@@ -18,18 +18,16 @@ package com.mohsin.vezeeta.features.characters
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import com.mohsin.vezeeta.R
 import com.mohsin.vezeeta.core.platform.BaseActivity
 
-class MovieDetailsActivity : BaseActivity() {
+class CharacterDetailsActivity : BaseActivity() {
 
     companion object {
         private const val INTENT_EXTRA_PARAM_CHARACTER = "com.mohsin.INTENT_PARAM_CHARACTER"
 
-        fun callingIntent(context: Context, movie: MovieView): Intent {
-            val intent = Intent(context, MovieDetailsActivity::class.java)
-            intent.putExtra(INTENT_EXTRA_PARAM_CHARACTER, movie)
+        fun callingIntent(context: Context, character: CharacterView): Intent {
+            val intent = Intent(context, CharacterDetailsActivity::class.java)
+            intent.putExtra(INTENT_EXTRA_PARAM_CHARACTER, character)
             return intent
         }
     }
@@ -46,5 +44,5 @@ class MovieDetailsActivity : BaseActivity() {
     }
 
 
-    override fun fragment() = MovieDetailsFragment.forMovie(intent.getParcelableExtra(INTENT_EXTRA_PARAM_CHARACTER))
+    override fun fragment() = CharacterDetailsFragment.forMovie(intent.getParcelableExtra(INTENT_EXTRA_PARAM_CHARACTER))
 }

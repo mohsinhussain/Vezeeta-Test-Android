@@ -21,21 +21,20 @@ import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.given
 import kotlinx.coroutines.runBlocking
-import org.amshove.kluent.shouldEqualTo
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
 
-class MovieDetailsViewModelTest : AndroidTest() {
+class CharacterDetailsViewModelTest : AndroidTest() {
 
-    private lateinit var movieDetailsViewModel: MovieDetailsViewModel
+    private lateinit var characterDetailsViewModel: CharacterDetailsViewModel
 
     @Mock private lateinit var getCharacterResource: GetCharacterResource
     @Mock private lateinit var playMovie: PlayMovie
 
     @Before
     fun setUp() {
-        movieDetailsViewModel = MovieDetailsViewModel(getCharacterResource, playMovie)
+        characterDetailsViewModel = CharacterDetailsViewModel(getCharacterResource, playMovie)
     }
 
     @Test fun `loading movie details should update live data`() {
@@ -43,7 +42,7 @@ class MovieDetailsViewModelTest : AndroidTest() {
                 "cast", "director", 2018, "trailer")
         given { runBlocking { getCharacterResource.run(eq(any())) } }.willReturn(Right(movieDetails))
 
-        movieDetailsViewModel.movieDetails.observeForever {
+        characterDetailsViewModel.movieDetails.observeForever {
             with(it!!) {
                 id shouldEqualTo 0
                 title shouldEqualTo "IronMan"
@@ -56,6 +55,6 @@ class MovieDetailsViewModelTest : AndroidTest() {
             }
         }
 
-        runBlocking { movieDetailsViewModel.loadMovieDetails(0) }
+        runBlocking { characterDetailsViewModel.loadMovieDetails(0) }
     }
 }

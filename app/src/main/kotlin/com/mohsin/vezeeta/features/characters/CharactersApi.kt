@@ -35,7 +35,7 @@ internal interface CharactersApi {
         private const val RESOURCES = "v1/public/characters/{$PARAM_CHARACTER_ID}/{$PARAM_RESOURCE}?ts=$TS&hash=$HASH&apikey=$API_KEY&limit=$PARAM_LIMIT"
     }//http://gateway.marvel.com/v1/public/characters/1009144/comics
 
-    @GET(MOVIES) fun movies(): Call<List<MovieEntity>>
+//    @GET(MOVIES) fun movies(): Call<List<MovieEntity>>
     @GET(CHARACTERS) fun characters(@Query("offset") offSet: Int): Call<CharactersResponse>
     @GET(CHARACTERS) fun characterSearch(@Query("offset") offSet: Int, @Query("nameStartsWith") nameStartsWith: String): Call<CharactersResponse>
     @GET(RESOURCES) fun characterResource(@Path(PARAM_CHARACTER_ID) characterId: Int, @Path(PARAM_RESOURCE) resource: String): Call<ResourceResponse>

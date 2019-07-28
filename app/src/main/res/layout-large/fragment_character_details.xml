@@ -29,6 +29,7 @@
           android:id="@+id/moviePoster"
           style="@style/MoviePoster"
           android:layout_height="440dp"
+          android:transitionName="@string/movie_transition_poster"
           android:layout_centerHorizontal="true"
           android:fitsSystemWindows="true"
           android:scaleType="centerCrop"
@@ -75,61 +76,137 @@
       <TextView
           style="@style/MovieDetailsTitle"
           android:text="@string/character_details_comics"/>
-      <TextView
-          android:id="@+id/comicsTextView"
-          style="@style/MovieDetailsText"
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/comicsList"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:layout_marginTop="8dp"
+          android:layout_marginLeft="8dp"
+          android:layout_marginRight="8dp"
+          android:layout_marginBottom="25dp"
           />
 
       <TextView
           style="@style/MovieDetailsTitle"
           android:text="@string/character_details_series"/>
-      <TextView
-          android:id="@+id/seriesTextView"
-          style="@style/MovieDetailsText"
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/seriesList"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:layout_marginTop="8dp"
+          android:layout_marginLeft="8dp"
+          android:layout_marginRight="8dp"
+          android:layout_marginBottom="25dp"
           />
 
       <TextView
           style="@style/MovieDetailsTitle"
           android:text="@string/character_details_stories"/>
-      <TextView
-          android:id="@+id/storiesTextView"
-          style="@style/MovieDetailsText"
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/storiesList"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:layout_marginLeft="8dp"
+          android:layout_marginRight="8dp"
+          android:layout_marginBottom="25dp"
           />
 
       <TextView
           style="@style/MovieDetailsTitle"
           android:text="@string/character_details_events"/>
-      <TextView
-          android:id="@+id/eventsTextView"
-          style="@style/MovieDetailsText"
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/eventsList"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:layout_marginLeft="8dp"
+          android:layout_marginRight="8dp"
+          android:layout_marginBottom="25dp"
           />
 
       <TextView
           style="@style/MovieDetailsTitle"
           android:text="@string/character_details_links"/>
-      <TextView
-          android:id="@+id/relatedLinksTextView"
-          style="@style/MovieDetailsText"
-          />
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:layout_marginBottom="100dp">
+        <RelativeLayout
+            android:id="@+id/detail"
+            android:visibility="gone"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+          <TextView
+              android:textColor="#fff"
+              android:layout_centerVertical="true"
+              style="@style/RelatedLinksText"
+              android:text="@string/detail"
+              />
+          <ImageView
+              android:src="@drawable/right_arrow"
+              android:layout_centerVertical="true"
+              android:layout_alignParentEnd="true"
+              android:layout_marginEnd="8dp"
+              android:layout_width="16dp"
+              android:layout_height="16dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/wiki"
+            android:visibility="gone"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+          <TextView
+              android:textColor="#fff"
+              android:layout_centerVertical="true"
+              style="@style/RelatedLinksText"
+              android:text="@string/wiki"
+              />
+          <ImageView
+              android:src="@drawable/right_arrow"
+              android:layout_centerVertical="true"
+              android:layout_alignParentEnd="true"
+              android:layout_marginEnd="8dp"
+              android:layout_width="16dp"
+              android:layout_height="16dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/comicLinks"
+            android:visibility="gone"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+          <TextView
+              android:textColor="#fff"
+              android:layout_centerVertical="true"
+              style="@style/RelatedLinksText"
+              android:text="@string/comiclink"
+              />
+          <ImageView
+              android:src="@drawable/right_arrow"
+              android:layout_centerVertical="true"
+              android:layout_alignParentEnd="true"
+              android:layout_marginEnd="8dp"
+              android:layout_width="16dp"
+              android:layout_height="16dp" />
+        </RelativeLayout>
+
+      </LinearLayout>
 
     </LinearLayout>
 
   </androidx.core.widget.NestedScrollView>
 
-  <com.google.android.material.floatingactionbutton.FloatingActionButton
-      android:id="@+id/moviePlay"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:clickable="true"
-      android:src="@mipmap/ic_launcher"
-      android:layout_margin="20dp"
-      android:scaleY="0.0"
-      android:scaleX="0.0"
-      app:backgroundTint="@color/colorSecondary"
-      app:elevation="6dp"
-      app:layout_anchor="@id/appbar"
-      app:layout_anchorGravity="bottom|right"
-      app:fabSize="normal"
-      />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

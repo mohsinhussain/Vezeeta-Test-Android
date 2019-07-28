@@ -17,8 +17,8 @@ package com.mohsin.vezeeta.core.di.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.mohsin.vezeeta.features.characters.MovieDetailsViewModel
-import com.mohsin.vezeeta.features.characters.MoviesViewModel
+import com.mohsin.vezeeta.features.characters.CharacterDetailsViewModel
+import com.mohsin.vezeeta.features.characters.CharactersViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -30,11 +30,11 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(MoviesViewModel::class)
-    abstract fun bindsMoviesViewModel(moviesViewModel: MoviesViewModel): ViewModel
+    @ViewModelKey(CharactersViewModel::class)
+    abstract fun bindsMoviesViewModel(charactersViewModel: CharactersViewModel): ViewModel
 
     @Binds
     @IntoMap
-    @ViewModelKey(MovieDetailsViewModel::class)
-    abstract fun bindsMovieDetailsViewModel(movieDetailsViewModel: MovieDetailsViewModel): ViewModel
+    @ViewModelKey(CharacterDetailsViewModel::class)
+    abstract fun bindsMovieDetailsViewModel(characterDetailsViewModel: CharacterDetailsViewModel): ViewModel
 }

@@ -25,9 +25,9 @@ import android.view.View
 import android.widget.ImageView
 import com.mohsin.vezeeta.features.login.Authenticator
 import com.mohsin.vezeeta.features.login.LoginActivity
-import com.mohsin.vezeeta.features.characters.MovieDetailsActivity
-import com.mohsin.vezeeta.features.characters.MovieView
-import com.mohsin.vezeeta.features.characters.MoviesActivity
+import com.mohsin.vezeeta.features.characters.CharacterDetailsActivity
+import com.mohsin.vezeeta.features.characters.CharacterView
+import com.mohsin.vezeeta.features.characters.CharactersActivity
 import com.mohsin.vezeeta.core.extension.empty
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -46,10 +46,10 @@ class Navigator
         }
     }
 
-    private fun showMovies(context: Context) = context.startActivity(MoviesActivity.callingIntent(context))
+    private fun showMovies(context: Context) = context.startActivity(CharactersActivity.callingIntent(context))
 
-    fun showMovieDetails(activity: FragmentActivity, movie: MovieView, navigationExtras: Extras) {
-        val intent = MovieDetailsActivity.callingIntent(activity, movie)
+    fun showMovieDetails(activity: FragmentActivity, character: CharacterView, navigationExtras: Extras) {
+        val intent = CharacterDetailsActivity.callingIntent(activity, character)
         val sharedView = navigationExtras.transitionSharedElement as ImageView
         val activityOptions = ActivityOptionsCompat
                 .makeSceneTransitionAnimation(activity, sharedView, sharedView.transitionName)

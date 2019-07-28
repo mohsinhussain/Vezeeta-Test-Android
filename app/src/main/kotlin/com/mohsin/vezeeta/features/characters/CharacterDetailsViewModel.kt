@@ -20,9 +20,8 @@ import com.mohsin.vezeeta.features.characters.GetCharacterResource.Params
 import com.mohsin.vezeeta.core.platform.BaseViewModel
 import javax.inject.Inject
 
-class MovieDetailsViewModel
-@Inject constructor(private val getCharacterResource: GetCharacterResource,
-                    private val playMovie: PlayMovie) : BaseViewModel() {
+class CharacterDetailsViewModel
+@Inject constructor(private val getCharacterResource: GetCharacterResource) : BaseViewModel() {
 
     var comics: MutableLiveData<List<ResourceEntity>> = MutableLiveData()
     var series: MutableLiveData<List<ResourceEntity>> = MutableLiveData()
@@ -44,10 +43,10 @@ class MovieDetailsViewModel
     fun loadEvents(characterId: Int, resource: String) =
             getCharacterResource(Params(characterId, resource)) { it.either(::handleFailure, ::handleEventsList) }
 
-    fun playMovie(url: String) = playMovie(PlayMovie.Params(url))
+//    fun playMovie(url: String) = playMovie(PlayMovie.Params(url))
 
 //    private fun handleMovieDetails(resources: MovieDetails) {
-//        this.movieDetails.value = MovieDetailsView(movie.id, movie.name, movie.poster,
+//        this.movieDetails.value = CharacterDetailsView(movie.id, movie.name, movie.poster,
 //                movie.description, movie.comics, movie.series, movie.stories, movie.links)
 //    }
 

@@ -15,21 +15,18 @@
  */
 package com.mohsin.vezeeta.features.characters
 
-import com.mohsin.vezeeta.core.extension.empty
+import android.content.Context
+import android.content.Intent
+import com.mohsin.vezeeta.core.platform.BaseActivity
 
-data class MovieDetails(val id: Int,
-                        val name: String,
-                        val poster: String,
-                        val description: String,
-                        val comics: String,
-                        val series: String,
-                        val stories: String,
-                        val links: String) {
+class CharactersActivity : BaseActivity() {
 
     companion object {
-        fun empty() = MovieDetails(0, String.empty(), String.empty(), String.empty(),
-                String.empty(), String.empty(), String.empty(), String.empty())
+        fun callingIntent(context: Context) = Intent(context, CharactersActivity::class.java)
     }
+
+
+
+
+    override fun fragment() = CharacterListFragment()
 }
-
-

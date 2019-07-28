@@ -34,15 +34,15 @@ import android.view.ViewGroup
 
 
 
-class MovieDetailsFragment : BaseFragment() {
+class CharacterDetailsFragment : BaseFragment() {
 
     companion object {
         private const val PARAM_CHARACTER = "param_character"
 
-        fun forMovie(movie: MovieView): MovieDetailsFragment {
-            val movieDetailsFragment = MovieDetailsFragment()
+        fun forMovie(character: CharacterView): CharacterDetailsFragment {
+            val movieDetailsFragment = CharacterDetailsFragment()
             val arguments = Bundle()
-            arguments.putParcelable(PARAM_CHARACTER, movie)
+            arguments.putParcelable(PARAM_CHARACTER, character)
             movieDetailsFragment.arguments = arguments
 
             return movieDetailsFragment
@@ -54,35 +54,35 @@ class MovieDetailsFragment : BaseFragment() {
     @Inject lateinit var storiesAdapter: ResourceAdapter
     @Inject lateinit var eventsAdapter: ResourceAdapter
     @Inject lateinit var dialogAdapter: DialogAdapter
-    @Inject lateinit var movieDetailsAnimator: MovieDetailsAnimator
+    @Inject lateinit var characterDetailAnimator: CharacterDetailAnimator
 
-    private lateinit var movieDetailsViewModel: MovieDetailsViewModel
+    private lateinit var characterDetailsViewModel: CharacterDetailsViewModel
 
     override fun layoutId() = R.layout.fragment_character_details
 
-    lateinit var character: MovieView
+    lateinit var character: CharacterView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         appComponent.inject(this)
-        activity?.let { movieDetailsAnimator.postponeEnterTransition(it) }
+        activity?.let { characterDetailAnimator.postponeEnterTransition(it) }
 
-        movieDetailsViewModel = viewModel(viewModelFactory) {
+        characterDetailsViewModel = viewModel(viewModelFactory) {
             observe(comics, ::renderComicsList)
             failure(failure, ::handleFailure)
         }
 
-        movieDetailsViewModel = viewModel(viewModelFactory) {
+        characterDetailsViewModel = viewModel(viewModelFactory) {
             observe(series, ::renderSeriesList)
             failure(failure, ::handleFailure)
         }
 
-        movieDetailsViewModel = viewModel(viewModelFactory) {
+        characterDetailsViewModel = viewModel(viewModelFactory) {
             observe(stories, ::renderStoriesList)
             failure(failure, ::handleFailure)
         }
 
-        movieDetailsViewModel = viewModel(viewModelFactory) {
+        characterDetailsViewModel = viewModel(viewModelFactory) {
             observe(events, ::renderEventsList)
             failure(failure, ::handleFailure)
         }
@@ -91,16 +91,16 @@ class MovieDetailsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeView()
-        character = arguments!![PARAM_CHARACTER] as MovieView
+        character = arguments!![PARAM_CHARACTER] as CharacterView
 
 //        if (firstTimeCreated(savedInstanceState)) {
-//            movieDetailsViewModel.loadMovieDetails((arguments?.get(PARAM_CHARACTER) as MovieView).id)
+//            characterDetailsViewModel.loadMovieDetails((arguments?.get(PARAM_CHARACTER) as CharacterView).id)
 //        } else {
-//        movieDetailsAnimator.scaleUpView(moviePlay)
-        movieDetailsAnimator.cancelTransition(moviePoster)
-        val character: MovieView = arguments!![PARAM_CHARACTER] as MovieView
+//        characterDetailAnimator.scaleUpView(moviePoster)
+//        characterDetailAnimator.cancelTransition(moviePoster)
+        val character: CharacterView = arguments!![PARAM_CHARACTER] as CharacterView
         moviePoster.loadFromUrl(character.thumbnail.path+"."+character.thumbnail.extension)
-        renderMovieDetails(MovieDetailsView(character.id, character.name, character.thumbnail.path+"."+character.thumbnail.extension, character.description, "", "", "", ""))
+        renderMovieDetails(CharacterDetailsView(character.id, character.name, character.thumbnail.path+"."+character.thumbnail.extension, character.description))
 
         loadComics()
         loadStories()
@@ -184,31 +184,31 @@ class MovieDetailsFragment : BaseFragment() {
 
 
     override fun onBackPressed() {
-        movieDetailsAnimator.fadeInvisible(scrollView, movieDetails)
+        characterDetailAnimator.fadeInvisible(scrollView, movieDetails)
 //        if (moviePlay.isVisible())
-//            movieDetailsAnimator.scaleDownView(moviePlay)
+//            characterDetailAnimator.scaleDownView(moviePlay)
 //        else
-//            movieDetailsAnimator.cancelTransition(moviePoster)
+//            characterDetailAnimator.cancelTransition(moviePoster)
     }
 
     private fun loadComics() {
         showProgress()
-        movieDetailsViewModel.loadComics(character.id, "comics")
+        characterDetailsViewModel.loadComics(character.id, "comics")
     }
 
     private fun loadStories() {
         showProgress()
-        movieDetailsViewModel.loadStories(character.id, "stories")
+        characterDetailsViewModel.loadStories(character.id, "stories")
     }
 
     private fun loadSeries() {
         showProgress()
-        movieDetailsViewModel.loadSeries(character.id, "series")
+        characterDetailsViewModel.loadSeries(character.id, "series")
     }
 
     private fun loadEvents() {
         showProgress()
-        movieDetailsViewModel.loadEvents(character.id, "events")
+        characterDetailsViewModel.loadEvents(character.id, "events")
     }
 
     private fun renderComicsList(resources: List<ResourceEntity>?) {
@@ -235,21 +235,21 @@ class MovieDetailsFragment : BaseFragment() {
         hideProgress()
     }
 
-    private fun renderMovieDetails(movie: MovieDetailsView?) {
-        movie?.let {
-            with(movie) {
+    private fun renderMovieDetails(character: CharacterDetailsView?) {
+        character?.let {
+            with(character) {
                 activity?.let {
                     moviePoster.loadUrlAndPostponeEnterTransition(poster, it)
                     it.toolbar.title = name
                 }
                 nameTextView.text = name
                 descTextView.text = desciption
-//                moviePlay.setOnClickListener { movieDetailsViewModel.playMovie(trailer) }
+//                moviePlay.setOnClickListener { characterDetailsViewModel.playMovie(trailer) }
             }
         }
-        movieDetailsAnimator.fadeVisible(scrollView, movieDetails)
+        characterDetailAnimator.fadeVisible(scrollView, movieDetails)
 
-//        movieDetailsAnimator.scaleUpView(moviePlay)
+        characterDetailAnimator.scaleUpView(moviePoster)
     }
 
     private fun handleFailure(failure: Failure?) {

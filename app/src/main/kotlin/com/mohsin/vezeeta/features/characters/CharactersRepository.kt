@@ -26,7 +26,7 @@ import retrofit2.Call
 import javax.inject.Inject
 
 interface CharactersRepository {
-    fun movies(): Either<Failure, List<Movie>>
+//    fun movies(): Either<Failure, List<Movie>>
     fun characters(offSet: Int, nameStartsWith: String): Either<Failure, List<CharacterEntity>>
     fun characterReources(characterId: Int, resource: String): Either<Failure, List<ResourceEntity>>
 
@@ -67,12 +67,12 @@ interface CharactersRepository {
             }
         }
 
-        override fun movies(): Either<Failure, List<Movie>> {
-            return when (networkHandler.isConnected) {
-                true -> request(onlineService.movies(), { it.map { it.toMovie() } }, emptyList())
-                false, null -> Left(NetworkConnection)
-            }
-        }
+//        override fun movies(): Either<Failure, List<Movie>> {
+//            return when (networkHandler.isConnected) {
+//                true -> request(onlineService.movies(), { it.map { it.toMovie() } }, emptyList())
+//                false, null -> Left(NetworkConnection)
+//            }
+//        }
 
         override fun characterReources(characterId: Int, resource: String): Either<Failure, List<ResourceEntity>> {
             return when (networkHandler.isConnected) {

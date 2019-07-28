@@ -26,6 +26,6 @@ class CharactersService
 
     override fun characters(offSet: Int) = charactersApi.characters(offSet)
     override fun characterSearch(offSet: Int, nameStartsWith: String) = charactersApi.characterSearch(offSet, nameStartsWith)
-    override fun movies() = charactersApi.movies()
+//    override fun movies() = charactersApi.movies()
     override fun characterResource(characterId: Int, resource: String) = charactersApi.characterResource(characterId, resource)
 }

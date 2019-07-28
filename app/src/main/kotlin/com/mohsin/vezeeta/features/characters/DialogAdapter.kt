@@ -33,7 +33,7 @@ class DialogAdapter
         _, _, _ -> notifyDataSetChanged()
     }
 
-    internal var clickListener: (MovieView, Navigator.Extras) -> Unit = { _, _ -> }
+    internal var clickListener: (CharacterView, Navigator.Extras) -> Unit = { _, _ -> }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             ViewHolder(parent.inflate(R.layout.row_dialog))
@@ -44,7 +44,7 @@ class DialogAdapter
     override fun getItemCount() = collection.size
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(movieView: ResourceEntity, clickListener: (MovieView, Navigator.Extras) -> Unit) {
+        fun bind(movieView: ResourceEntity, clickListener: (CharacterView, Navigator.Extras) -> Unit) {
             itemView.moviePoster.loadFromUrl(movieView.thumbnail!!.path+"."+movieView.thumbnail!!.extension)
 //            itemView.setOnClickListener { clickListener(movieView, Navigator.Extras(itemView.moviePoster)) }
         }

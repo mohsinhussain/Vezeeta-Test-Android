@@ -26,22 +26,22 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
 
-class MoviesViewModelTest : AndroidTest() {
+class CharactersViewModelTest : AndroidTest() {
 
-    private lateinit var moviesViewModel: MoviesViewModel
+    private lateinit var charactersViewModel: CharactersViewModel
 
     @Mock private lateinit var getMovies: GetMovies
 
     @Before
     fun setUp() {
-        moviesViewModel = MoviesViewModel(getMovies)
+        charactersViewModel = CharactersViewModel(getMovies)
     }
 
     @Test fun `loading movies should update live data`() {
         val moviesList = listOf(Movie(0, "IronMan"), Movie(1, "Batman"))
         given { runBlocking { getMovies.run(eq(any())) } }.willReturn(Right(moviesList))
 
-        moviesViewModel.movies.observeForever {
+        charactersViewModel.movies.observeForever {
             it!!.size shouldEqualTo 2
             it[0].id shouldEqualTo 0
             it[0].poster shouldEqualTo "IronMan"
@@ -49,6 +49,6 @@ class MoviesViewModelTest : AndroidTest() {
             it[1].poster shouldEqualTo "Batman"
         }
 
-        runBlocking { moviesViewModel.loadMovies() }
+        runBlocking { charactersViewModel.loadMovies() }
     }
 }

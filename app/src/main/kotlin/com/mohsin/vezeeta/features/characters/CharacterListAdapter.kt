@@ -26,14 +26,14 @@ import kotlinx.android.synthetic.main.row_movie.view.*
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
-class MoviesAdapter
-@Inject constructor() : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
+class CharacterListAdapter
+@Inject constructor() : RecyclerView.Adapter<CharacterListAdapter.ViewHolder>() {
 
-    internal var collection: ArrayList<MovieView> by Delegates.observable(ArrayList<MovieView>()) {
+    internal var collection: ArrayList<CharacterView> by Delegates.observable(ArrayList<CharacterView>()) {
         _, _, _ -> notifyDataSetChanged()
     }
 
-    internal var clickListener: (MovieView, Navigator.Extras) -> Unit = { _, _ -> }
+    internal var clickListener: (CharacterView, Navigator.Extras) -> Unit = { _, _ -> }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             ViewHolder(parent.inflate(R.layout.row_movie))
@@ -44,10 +44,10 @@ class MoviesAdapter
     override fun getItemCount() = collection.size
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(movieView: MovieView, clickListener: (MovieView, Navigator.Extras) -> Unit) {
-            itemView.moviePoster.loadFromUrl(movieView.thumbnail.path+"."+movieView.thumbnail.extension)
-            itemView.nameTextView.text = movieView.name
-            itemView.setOnClickListener { clickListener(movieView, Navigator.Extras(itemView.moviePoster)) }
+        fun bind(characterView: CharacterView, clickListener: (CharacterView, Navigator.Extras) -> Unit) {
+            itemView.moviePoster.loadFromUrl(characterView.thumbnail.path+"."+characterView.thumbnail.extension)
+            itemView.nameTextView.text = characterView.name
+            itemView.setOnClickListener { clickListener(characterView, Navigator.Extras(itemView.moviePoster)) }
         }
     }
 }

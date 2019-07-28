@@ -25,7 +25,7 @@ import com.mohsin.vezeeta.core.extension.cancelTransition
 import javax.inject.Inject
 
 
-class MovieDetailsAnimator
+class CharacterDetailAnimator
 @Inject constructor() {
 
     private val TRANSITION_DELAY = 200L

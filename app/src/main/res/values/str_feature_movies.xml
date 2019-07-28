@@ -1,6 +1,4 @@
 <resources>
-    <string name="movies_screen_title">Movies</string>
-    <string name="movie_details_screen_title">Movie Details</string>
     <string name="character_details_name">NAME</string>
     <string name="character_details_desc">DESCRIPTION</string>
     <string name="character_details_comics">COMICS</string>

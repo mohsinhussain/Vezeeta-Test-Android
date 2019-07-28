@@ -17,16 +17,14 @@ package com.mohsin.vezeeta.features.characters
 
 import android.os.Build
 import android.os.Parcel
-import android.os.Parcelable
 import androidx.annotation.RequiresApi
 import com.mohsin.vezeeta.core.platform.KParcelable
 import com.mohsin.vezeeta.core.platform.parcelableCreator
-import com.mohsin.vezeeta.core.platform.writeTypedObjectCompat
 
-data class MovieView(val id: Int, val name: String, val description: String, val thumbnail: Thumbnail,
-                     val comics: Resource, val series: Resource, val stories: Resource, val events: Resource, val urls: List<RelatedLink>) : KParcelable {
+data class CharacterView(val id: Int, val name: String, val description: String, val thumbnail: Thumbnail,
+                         val comics: Resource, val series: Resource, val stories: Resource, val events: Resource, val urls: List<RelatedLink>) : KParcelable {
     companion object {
-        @JvmField val CREATOR = parcelableCreator(::MovieView)
+        @JvmField val CREATOR = parcelableCreator(::CharacterView)
     }
 
     @RequiresApi(Build.VERSION_CODES.M)

@@ -35,13 +35,13 @@ xmlns:android="http://schemas.android.com/apk/res/android">
     </activity>
 
     <activity
-        android:name="com.mohsin.vezeeta.features.characters.MoviesActivity"
-        android:label="@string/movies_screen_title">
+        android:name="com.mohsin.vezeeta.features.characters.CharactersActivity"
+        android:label="">
     </activity>
 
     <activity
-        android:name="com.mohsin.vezeeta.features.characters.MovieDetailsActivity"
-        android:label="@string/movie_details_screen_title"
+        android:name="com.mohsin.vezeeta.features.characters.CharacterDetailsActivity"
+        android:label=""
         android:theme="@style/AppTheme.Translucent">
     </activity>
 

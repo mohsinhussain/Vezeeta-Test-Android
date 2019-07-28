@@ -15,12 +15,7 @@
  */
 package com.mohsin.vezeeta.features.characters
 
-import com.mohsin.vezeeta.core.interactor.UseCase
-import com.mohsin.vezeeta.core.interactor.UseCase.None
-import javax.inject.Inject
-
-class GetMovies
-@Inject constructor(private val charactersRepository: CharactersRepository) : UseCase<List<Movie>, None>() {
-
-    override suspend fun run(params: None) = charactersRepository.movies()
-}
+data class CharacterDetailsView(val id: Int,
+                                val name: String,
+                                val poster: String,
+                                val desciption: String)

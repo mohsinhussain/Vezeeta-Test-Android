@@ -18,7 +18,7 @@ package com.mohsin.vezeeta.core.navigation
 import com.mohsin.vezeeta.AndroidTest
 import com.mohsin.vezeeta.features.login.Authenticator
 import com.mohsin.vezeeta.features.login.LoginActivity
-import com.mohsin.vezeeta.features.characters.MoviesActivity
+import com.mohsin.vezeeta.features.characters.CharactersActivity
 import com.mohsin.vezeeta.shouldNavigateTo
 import com.nhaarman.mockito_kotlin.whenever
 import org.junit.Before
@@ -52,6 +52,6 @@ class NavigatorTest : AndroidTest() {
         navigator.showMain(activityContext())
 
         verify(authenticator).userLoggedIn()
-        RouteActivity::class shouldNavigateTo MoviesActivity::class
+        RouteActivity::class shouldNavigateTo CharactersActivity::class
     }
 }

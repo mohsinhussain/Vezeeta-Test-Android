@@ -19,15 +19,15 @@ import androidx.lifecycle.MutableLiveData
 import com.mohsin.vezeeta.core.platform.BaseViewModel
 import javax.inject.Inject
 
-class MoviesViewModel
+class CharactersViewModel
 @Inject constructor(private val getCharacters: GetCharacter, private val getCharacterResource: GetCharacterResource) : BaseViewModel() {
 
-    var movies: MutableLiveData<List<MovieView>> = MutableLiveData()
+    var movies: MutableLiveData<List<CharacterView>> = MutableLiveData()
 
 //    fun loadMovies() = getMovies(None()) { it.either(::handleFailure, ::handleMovieList) }
 
 //    private fun handleMovieList(movies: List<Movie>) {
-//        this.movies.value = movies.map { MovieView(it.id, it.poster, it.poster) }
+//        this.movies.value = movies.map { CharacterView(it.id, it.poster, it.poster) }
 //    }
 
 
@@ -36,7 +36,7 @@ class MoviesViewModel
     }
 
     private fun handleCharactersList(characters: List<CharacterEntity>) {
-        this.movies.value = characters.map { MovieView(it.id, it.name, it.description, it.thumbnail, it.comics, it.series, it.stories,
+        this.movies.value = characters.map { CharacterView(it.id, it.name, it.description, it.thumbnail, it.comics, it.series, it.stories,
                 it.events, it.urls) }
     }
 

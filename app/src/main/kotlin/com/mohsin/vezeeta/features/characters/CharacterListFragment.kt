@@ -24,12 +24,10 @@ import android.view.MenuInflater
 import androidx.annotation.StringRes
 import android.view.View
 import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mohsin.vezeeta.core.platform.BaseFragment
 import com.mohsin.vezeeta.R
-import com.mohsin.vezeeta.features.characters.MovieFailure.ListNotAvailable
 import com.mohsin.vezeeta.core.exception.Failure
 import com.mohsin.vezeeta.core.exception.Failure.NetworkConnection
 import com.mohsin.vezeeta.core.exception.Failure.ServerError
@@ -47,14 +45,14 @@ import javax.inject.Inject
 class CharacterListFragment : BaseFragment() {
 
     @Inject lateinit var navigator: Navigator
-    @Inject lateinit var moviesAdapter: MoviesAdapter
+    @Inject lateinit var characterListAdapter: CharacterListAdapter
     private var scrollListener: EndlessRecyclerViewScrollListener? = null
     var offSet = 0
     var nameStartsWith = ""
 
     private var searchView: SearchView? = null
 
-    private lateinit var moviesViewModel: MoviesViewModel
+    private lateinit var charactersViewModel: CharactersViewModel
 
     override fun layoutId() = R.layout.fragment_movies
 
@@ -64,7 +62,7 @@ class CharacterListFragment : BaseFragment() {
 
         setHasOptionsMenu(true)
 
-        moviesViewModel = viewModel(viewModelFactory) {
+        charactersViewModel = viewModel(viewModelFactory) {
             observe(movies, ::renderMoviesList)
             failure(failure, ::handleFailure)
         }
@@ -74,9 +72,9 @@ class CharacterListFragment : BaseFragment() {
 
     private fun resetListView(){
         offSet = 0
-        moviesViewModel.loadCharacters(offSet, nameStartsWith)
-        moviesAdapter.collection.clear()
-        moviesAdapter.notifyDataSetChanged()
+        charactersViewModel.loadCharacters(offSet, nameStartsWith)
+        characterListAdapter.collection.clear()
+        characterListAdapter.notifyDataSetChanged()
     }
 
 
@@ -141,8 +139,8 @@ class CharacterListFragment : BaseFragment() {
         }
         // Adds the scroll listener to RecyclerView
         movieList.addOnScrollListener(scrollListener as EndlessRecyclerViewScrollListener)
-        movieList.adapter = moviesAdapter
-        moviesAdapter.clickListener = { movie, navigationExtras ->
+        movieList.adapter = characterListAdapter
+        characterListAdapter.clickListener = { movie, navigationExtras ->
                     navigator.showMovieDetails(activity!!, movie, navigationExtras) }
     }
 
@@ -150,14 +148,14 @@ class CharacterListFragment : BaseFragment() {
         emptyView.invisible()
         movieList.visible()
         showProgress()
-//        moviesViewModel.loadMovies()
-        moviesViewModel.loadCharacters(offSet, nameStartsWith)
+//        charactersViewModel.loadMovies()
+        charactersViewModel.loadCharacters(offSet, nameStartsWith)
     }
 
-    private fun renderMoviesList(movies: List<MovieView>?) {
+    private fun renderMoviesList(characters: List<CharacterView>?) {
 
-        moviesAdapter.collection.addAll(movies.orEmpty())
-        moviesAdapter.notifyDataSetChanged()
+        characterListAdapter.collection.addAll(characters.orEmpty())
+        characterListAdapter.notifyDataSetChanged()
         hideProgress()
     }
 
@@ -165,7 +163,6 @@ class CharacterListFragment : BaseFragment() {
         when (failure) {
             is NetworkConnection -> renderFailure(R.string.failure_network_connection)
             is ServerError -> renderFailure(R.string.failure_server_error)
-            is ListNotAvailable -> renderFailure(R.string.failure_character_list_unavailable)
         }
     }
 
