@@ -2,17 +2,11 @@ package com.mohsin.vezeeta.features.characters
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.mohsin.vezeeta.core.extension.empty
 import com.mohsin.vezeeta.core.platform.KParcelable
 
 data class Resource (val collectionURI: String) : KParcelable {
 
-    constructor(parcel: Parcel) : this(parcel.readString()) {
-    }
-
-//    companion object {
-//        fun empty() = Resource(String.empty())
-//    }
+    constructor(parcel: Parcel) : this(parcel.readString())
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
         with(dest){

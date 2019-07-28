@@ -51,33 +51,33 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="MoviePoster">
+    <style name="CharacterPoster">
         <item name="android:layout_width">match_parent</item>
         <item name="android:scaleType">centerCrop</item>
         <item name="android:transitionName">@string/movie_transition_poster</item>
         <item name="android:background">@color/colorPrimary</item>
     </style>
 
-    <style name="MovieDetailsTitle">
+    <style name="CharacterDetailsTitle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/colorTextSecondary</item>
         <item name="android:fontFamily">sans-serif-light</item>
-        <item name="android:textSize">@dimen/movie_details_title</item>
+        <item name="android:textSize">@dimen/character_details_title</item>
         <item name="android:paddingRight">20dp</item>
         <item name="android:paddingLeft">20dp</item>
     </style>
 
-    <style name="MovieDetailsText" parent="MovieDetailsTitle">
+    <style name="CharacterDetailsText" parent="CharacterDetailsTitle">
         <item name="android:textColor">@color/colorTextPrimary</item>
-        <item name="android:textSize">@dimen/movie_details_text</item>
+        <item name="android:textSize">@dimen/character_details_text</item>
         <item name="android:paddingBottom">25dp</item>
         <item name="android:freezesText">true</item>
     </style>
 
-    <style name="RelatedLinksText" parent="MovieDetailsTitle">
+    <style name="RelatedLinksText" parent="CharacterDetailsTitle">
         <item name="android:textColor">@color/colorTextPrimary</item>
-        <item name="android:textSize">@dimen/movie_details_text</item>
+        <item name="android:textSize">@dimen/character_details_text</item>
         <item name="android:freezesText">true</item>
     </style>
 

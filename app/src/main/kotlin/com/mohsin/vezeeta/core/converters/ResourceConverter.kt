@@ -18,7 +18,7 @@ class ResourceConverter {
 
         val typeOfObject = object : TypeToken<Resource>() {
 
-        }.getType()
+        }.type
 
         return gson.fromJson(data, typeOfObject)
     }

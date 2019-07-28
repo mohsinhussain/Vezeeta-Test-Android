@@ -10,7 +10,7 @@
 
         <ImageView
             android:layout_width="150dp"
-            android:id="@+id/moviePoster"
+            android:id="@+id/characterPoster"
             android:layout_height="220dp"
             android:scaleType="centerCrop"
             />

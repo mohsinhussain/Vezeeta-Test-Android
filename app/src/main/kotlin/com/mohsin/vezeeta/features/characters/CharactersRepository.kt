@@ -1,18 +1,4 @@
-/**
- * Copyright (C) 2018 Fernando Cejas Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 package com.mohsin.vezeeta.features.characters
 
 import com.mohsin.vezeeta.core.exception.Failure
@@ -26,7 +12,6 @@ import retrofit2.Call
 import javax.inject.Inject
 
 interface CharactersRepository {
-//    fun movies(): Either<Failure, List<Movie>>
     fun characters(offSet: Int, nameStartsWith: String): Either<Failure, List<CharacterEntity>>
     fun characterReources(characterId: Int, resource: String): Either<Failure, List<ResourceEntity>>
 
@@ -49,7 +34,7 @@ interface CharactersRepository {
                 },
                         CharactersResponse())
                 false, null -> {
-                    var list: List<CharacterEntity> = if(nameStartsWith.contentEquals("")){
+                    val list: List<CharacterEntity> = if(nameStartsWith.contentEquals("")){
                         offlineService.characters(offset)
                     } else{
                         offlineService.characterSearch(offset, nameStartsWith)
@@ -63,16 +48,10 @@ interface CharactersRepository {
                         Left(NetworkConnection)
                     }
 
-                }//Left(NetworkConnection)
+                }
             }
         }
 
-//        override fun movies(): Either<Failure, List<Movie>> {
-//            return when (networkHandler.isConnected) {
-//                true -> request(onlineService.movies(), { it.map { it.toMovie() } }, emptyList())
-//                false, null -> Left(NetworkConnection)
-//            }
-//        }
 
         override fun characterReources(characterId: Int, resource: String): Either<Failure, List<ResourceEntity>> {
             return when (networkHandler.isConnected) {
@@ -94,7 +73,7 @@ interface CharactersRepository {
                         return Left(Failure.ResourceError)
                     }
 
-                }//Left(NetworkConnection)
+                }
             }
         }
 
@@ -110,17 +89,17 @@ interface CharactersRepository {
             }
         }
 
-        fun saveCharacterResourceToDB(resource: ResourceEntity, characterId: Int, resourceType: String): ResourceEntity{
+        private fun saveCharacterResourceToDB(resource: ResourceEntity, characterId: Int, resourceType: String): ResourceEntity{
             resource.characterid = characterId
             resource.resourceType = resourceType
             val id = offlineService.addResource(resource)
-            println("Resource added with id: "+ id)
+            println("Resource added with id: $id")
             return resource
         }
 
-        fun saveCharacterToDB(character: CharacterEntity): CharacterEntity{
+        private fun saveCharacterToDB(character: CharacterEntity): CharacterEntity{
             val id = offlineService.addCharacter(character)
-            println("Character added with id: "+ id)
+            println("Character added with id: $id")
             return character
         }
     }

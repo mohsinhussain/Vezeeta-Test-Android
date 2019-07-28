@@ -26,8 +26,8 @@
         >
 
       <ImageView
-          android:id="@+id/moviePoster"
-          style="@style/MoviePoster"
+          android:id="@+id/characterPoster"
+          style="@style/CharacterPoster"
           android:layout_height="640dp"
           android:layout_centerHorizontal="true"
           android:fitsSystemWindows="true"
@@ -47,7 +47,7 @@
       >
 
     <LinearLayout
-        android:id="@+id/movieDetails"
+        android:id="@+id/characterDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -57,23 +57,23 @@
         >
 
       <TextView
-          style="@style/MovieDetailsTitle"
+          style="@style/CharacterDetailsTitle"
           android:text="@string/character_details_name"/>
       <TextView
           android:id="@+id/nameTextView"
-          style="@style/MovieDetailsText"
+          style="@style/CharacterDetailsText"
           />
 
       <TextView
-          style="@style/MovieDetailsTitle"
+          style="@style/CharacterDetailsTitle"
           android:text="@string/character_details_desc"/>
       <TextView
           android:id="@+id/descTextView"
-          style="@style/MovieDetailsText"
+          style="@style/CharacterDetailsText"
           />
 
       <TextView
-          style="@style/MovieDetailsTitle"
+          style="@style/CharacterDetailsTitle"
           android:text="@string/character_details_comics"/>
       <androidx.recyclerview.widget.RecyclerView
           android:id="@+id/comicsList"
@@ -87,7 +87,7 @@
           />
 
       <TextView
-          style="@style/MovieDetailsTitle"
+          style="@style/CharacterDetailsTitle"
           android:text="@string/character_details_series"/>
       <androidx.recyclerview.widget.RecyclerView
           android:id="@+id/seriesList"
@@ -101,7 +101,7 @@
           />
 
       <TextView
-          style="@style/MovieDetailsTitle"
+          style="@style/CharacterDetailsTitle"
           android:text="@string/character_details_stories"/>
       <androidx.recyclerview.widget.RecyclerView
           android:id="@+id/storiesList"
@@ -114,7 +114,7 @@
           />
 
       <TextView
-          style="@style/MovieDetailsTitle"
+          style="@style/CharacterDetailsTitle"
           android:text="@string/character_details_events"/>
       <androidx.recyclerview.widget.RecyclerView
           android:id="@+id/eventsList"
@@ -127,7 +127,7 @@
           />
 
       <TextView
-          style="@style/MovieDetailsTitle"
+          style="@style/CharacterDetailsTitle"
           android:text="@string/character_details_links"/>
       <LinearLayout
           android:layout_width="match_parent"

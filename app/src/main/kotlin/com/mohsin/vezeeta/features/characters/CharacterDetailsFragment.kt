@@ -1,18 +1,4 @@
-/**
- * Copyright (C) 2018 Fernando Cejas Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 package com.mohsin.vezeeta.features.characters
 
 import android.app.Dialog
@@ -93,13 +79,8 @@ class CharacterDetailsFragment : BaseFragment() {
         initializeView()
         character = arguments!![PARAM_CHARACTER] as CharacterView
 
-//        if (firstTimeCreated(savedInstanceState)) {
-//            characterDetailsViewModel.loadMovieDetails((arguments?.get(PARAM_CHARACTER) as CharacterView).id)
-//        } else {
-//        characterDetailAnimator.scaleUpView(moviePoster)
-//        characterDetailAnimator.cancelTransition(moviePoster)
         val character: CharacterView = arguments!![PARAM_CHARACTER] as CharacterView
-        moviePoster.loadFromUrl(character.thumbnail.path+"."+character.thumbnail.extension)
+        characterPoster.loadFromUrl(character.thumbnail.path+"."+character.thumbnail.extension)
         renderMovieDetails(CharacterDetailsView(character.id, character.name, character.thumbnail.path+"."+character.thumbnail.extension, character.description))
 
         loadComics()
@@ -139,8 +120,6 @@ class CharacterDetailsFragment : BaseFragment() {
 
         }
 
-
-//        }
     }
 
 
@@ -184,11 +163,7 @@ class CharacterDetailsFragment : BaseFragment() {
 
 
     override fun onBackPressed() {
-        characterDetailAnimator.fadeInvisible(scrollView, movieDetails)
-//        if (moviePlay.isVisible())
-//            characterDetailAnimator.scaleDownView(moviePlay)
-//        else
-//            characterDetailAnimator.cancelTransition(moviePoster)
+        characterDetailAnimator.fadeInvisible(scrollView, characterDetails)
     }
 
     private fun loadComics() {
@@ -239,25 +214,21 @@ class CharacterDetailsFragment : BaseFragment() {
         character?.let {
             with(character) {
                 activity?.let {
-                    moviePoster.loadUrlAndPostponeEnterTransition(poster, it)
+                    characterPoster.loadUrlAndPostponeEnterTransition(poster, it)
                     it.toolbar.title = name
                 }
                 nameTextView.text = name
                 descTextView.text = desciption
-//                moviePlay.setOnClickListener { characterDetailsViewModel.playMovie(trailer) }
             }
         }
-        characterDetailAnimator.fadeVisible(scrollView, movieDetails)
+        characterDetailAnimator.fadeVisible(scrollView, characterDetails)
 
-        characterDetailAnimator.scaleUpView(moviePoster)
+        characterDetailAnimator.scaleUpView(characterPoster)
     }
 
     private fun handleFailure(failure: Failure?) {
         when (failure) {
             is NetworkConnection -> { notify(R.string.failure_network_connection); close() }
-//            is ServerError -> { notify(R.string.failure_server_error); close() }
-//            is NonExistentMovie -> { notify(R.string.failure_character_non_existent); close() }
-//            is Failure.ResourceError -> { notify(R.string.failure_resource_non_existent); close() }
         }
     }
 
@@ -279,12 +250,9 @@ class CharacterDetailsFragment : BaseFragment() {
 
         llm.scrollToPosition(position)
 
-
         dialog.closeButton.setOnClickListener{
             dialog.dismiss()
         }
-
-
 
         dialog .show()
 

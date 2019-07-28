@@ -17,7 +17,7 @@ class ThumbnailConverter {
 
         val typeOfObject = object : TypeToken<Thumbnail>() {
 
-        }.getType()
+        }.type
 
         return gson.fromJson(data, typeOfObject)
     }

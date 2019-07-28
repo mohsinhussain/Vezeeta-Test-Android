@@ -1,18 +1,4 @@
-/**
- * Copyright (C) 2018 Fernando Cejas Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 package com.mohsin.vezeeta.features.characters
 
 import android.app.SearchManager
@@ -38,8 +24,8 @@ import com.mohsin.vezeeta.core.extension.viewModel
 import com.mohsin.vezeeta.core.extension.visible
 import com.mohsin.vezeeta.core.navigation.EndlessRecyclerViewScrollListener
 import com.mohsin.vezeeta.core.navigation.Navigator
-import kotlinx.android.synthetic.main.fragment_movies.emptyView
-import kotlinx.android.synthetic.main.fragment_movies.movieList
+import kotlinx.android.synthetic.main.fragment_characters.emptyView
+import kotlinx.android.synthetic.main.fragment_characters.movieList
 import javax.inject.Inject
 
 class CharacterListFragment : BaseFragment() {
@@ -54,14 +40,12 @@ class CharacterListFragment : BaseFragment() {
 
     private lateinit var charactersViewModel: CharactersViewModel
 
-    override fun layoutId() = R.layout.fragment_movies
+    override fun layoutId() = R.layout.fragment_characters
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         appComponent.inject(this)
-
         setHasOptionsMenu(true)
-
         charactersViewModel = viewModel(viewModelFactory) {
             observe(movies, ::renderMoviesList)
             failure(failure, ::handleFailure)
@@ -82,34 +66,27 @@ class CharacterListFragment : BaseFragment() {
         super.onCreateOptionsMenu(menu, inflater)
         inflater!!.inflate(R.menu.options_menu, menu)
 
-        // Associate searchable configuration with the SearchView
         val searchManager = activity!!.getSystemService(Context.SEARCH_SERVICE) as SearchManager
         searchView = menu!!.findItem(R.id.search)
                 .actionView as SearchView
         searchView!!.setSearchableInfo(searchManager
                 .getSearchableInfo(activity!!.componentName))
         searchView!!.maxWidth = Integer.MAX_VALUE
-
         searchView!!.setOnCloseListener {
             nameStartsWith = ""
             resetListView()
             return@setOnCloseListener false
         }
 
-        // listening to search query text change
         searchView!!.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 Log.i("onQueryTextChange", query)
                 nameStartsWith = query
                 resetListView()
-                // filter recycler view when query submitted
-//                viewAdapter.getFilter().filter(query)
                 return false
             }
 
             override fun onQueryTextChange(query: String): Boolean {
-                // filter recycler view when text is changed
-//                viewAdapter.getFilter().filter(query)
                 nameStartsWith = query
                 resetListView()
                 Log.i("onQuerySubmitted", query)
@@ -126,18 +103,15 @@ class CharacterListFragment : BaseFragment() {
 
 
     private fun initializeView() {
-//        movieList.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
-        val linearLayoutManager: LinearLayoutManager = LinearLayoutManager(activity)
+        val linearLayoutManager = LinearLayoutManager(activity)
         movieList.layoutManager = linearLayoutManager
         scrollListener = object : EndlessRecyclerViewScrollListener(linearLayoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
-                // Triggered only when new data needs to be appended to the list
-                // Add whatever code is needed to append new items to the bottom of the list
-                offSet = offSet + 20
+                offSet += 20
                 loadMoviesList()
             }
         }
-        // Adds the scroll listener to RecyclerView
+
         movieList.addOnScrollListener(scrollListener as EndlessRecyclerViewScrollListener)
         movieList.adapter = characterListAdapter
         characterListAdapter.clickListener = { movie, navigationExtras ->
@@ -148,12 +122,10 @@ class CharacterListFragment : BaseFragment() {
         emptyView.invisible()
         movieList.visible()
         showProgress()
-//        charactersViewModel.loadMovies()
         charactersViewModel.loadCharacters(offSet, nameStartsWith)
     }
 
     private fun renderMoviesList(characters: List<CharacterView>?) {
-
         characterListAdapter.collection.addAll(characters.orEmpty())
         characterListAdapter.notifyDataSetChanged()
         hideProgress()
@@ -167,8 +139,6 @@ class CharacterListFragment : BaseFragment() {
     }
 
     private fun renderFailure(@StringRes message: Int) {
-//        movieList.invisible()
-//        emptyView.visible()
         hideProgress()
         notifyWithAction(message, R.string.action_refresh, ::loadMoviesList)
     }

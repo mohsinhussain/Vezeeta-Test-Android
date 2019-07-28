@@ -10,7 +10,7 @@
 
         <ImageView
             android:layout_width="550dp"
-            android:id="@+id/moviePoster"
+            android:id="@+id/characterPoster"
             android:padding="10dp"
             android:layout_gravity="center"
             android:layout_height="800dp"

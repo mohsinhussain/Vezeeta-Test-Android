@@ -17,7 +17,7 @@ class RelatedLinksConverter {
 
         val listType = object : TypeToken<List<RelatedLink>>() {
 
-        }.getType()
+        }.type
 
         return gson.fromJson(data, listType)
     }

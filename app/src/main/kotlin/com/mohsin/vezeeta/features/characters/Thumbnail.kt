@@ -10,14 +10,11 @@ import kotlinx.android.parcel.Parcelize
 
 data class Thumbnail (val path: String, val extension: String): KParcelable {
 
-//    companion object {
-//        @JvmField val CREATOR = parcelableCreator(::Thumbnail)
-//    }
+
 
     constructor(parcel: Parcel) : this(
-            parcel.readString(),
-            parcel.readString()) {
-    }
+            parcel.readString()!!,
+            parcel.readString()!!)
 
 
 
