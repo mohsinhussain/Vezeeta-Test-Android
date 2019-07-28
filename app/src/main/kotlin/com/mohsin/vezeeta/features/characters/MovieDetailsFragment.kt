@@ -15,24 +15,24 @@
  */
 package com.mohsin.vezeeta.features.characters
 
+import android.app.Dialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mohsin.vezeeta.core.platform.BaseFragment
 import com.mohsin.vezeeta.R
-import com.mohsin.vezeeta.features.characters.MovieFailure.NonExistentMovie
 import com.mohsin.vezeeta.core.exception.Failure
 import com.mohsin.vezeeta.core.exception.Failure.NetworkConnection
-import com.mohsin.vezeeta.core.exception.Failure.ServerError
 import com.mohsin.vezeeta.core.extension.*
+import kotlinx.android.synthetic.main.custom_layout.*
 import kotlinx.android.synthetic.main.fragment_character_details.*
 import kotlinx.android.synthetic.main.toolbar.toolbar
 import javax.inject.Inject
+import android.view.ViewGroup
+
+
 
 class MovieDetailsFragment : BaseFragment() {
 
@@ -53,6 +53,7 @@ class MovieDetailsFragment : BaseFragment() {
     @Inject lateinit var seriesAdapter: ResourceAdapter
     @Inject lateinit var storiesAdapter: ResourceAdapter
     @Inject lateinit var eventsAdapter: ResourceAdapter
+    @Inject lateinit var dialogAdapter: DialogAdapter
     @Inject lateinit var movieDetailsAnimator: MovieDetailsAnimator
 
     private lateinit var movieDetailsViewModel: MovieDetailsViewModel
@@ -157,8 +158,26 @@ class MovieDetailsFragment : BaseFragment() {
         eventsList.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         eventsList.adapter = eventsAdapter
 
-//        comicsAdapter.clickListener = { movie, navigationExtras ->
-//            navigator.showMovieDetails(activity!!, movie, navigationExtras) }
+        comicsAdapter.clickListener = { position ->
+            showImageDialog(comicsAdapter, position)
+            }
+
+
+        storiesAdapter.clickListener = { position ->
+            showImageDialog(storiesAdapter, position)
+        }
+
+
+        seriesAdapter.clickListener = { position ->
+            showImageDialog(seriesAdapter, position)
+        }
+
+
+        eventsAdapter.clickListener = { position ->
+            showImageDialog(eventsAdapter, position)
+        }
+
+
     }
 
 
@@ -240,5 +259,34 @@ class MovieDetailsFragment : BaseFragment() {
 //            is NonExistentMovie -> { notify(R.string.failure_character_non_existent); close() }
 //            is Failure.ResourceError -> { notify(R.string.failure_resource_non_existent); close() }
         }
+    }
+
+
+    private fun showImageDialog(resourceAdapter: ResourceAdapter, position: Int) {
+        val dialog = Dialog(activity!!, R.style.FullScreenDialogStyle)
+        dialog .requestWindowFeature(Window.FEATURE_NO_TITLE)
+
+        val width = ViewGroup.LayoutParams.MATCH_PARENT
+        val height = ViewGroup.LayoutParams.MATCH_PARENT
+        dialog.window!!.setLayout(width, height)
+        dialog .setCancelable(false)
+        dialog .setContentView(R.layout.custom_layout)
+        val llm = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        dialog.resourceList.layoutManager = llm
+        dialog.resourceList.adapter = dialogAdapter
+        dialogAdapter.collection = resourceAdapter.collection
+        dialogAdapter.notifyDataSetChanged()
+
+        llm.scrollToPosition(position)
+
+
+        dialog.closeButton.setOnClickListener{
+            dialog.dismiss()
+        }
+
+
+
+        dialog .show()
+
     }
 }
