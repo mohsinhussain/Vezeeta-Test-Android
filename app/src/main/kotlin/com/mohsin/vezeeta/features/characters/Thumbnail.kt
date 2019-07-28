@@ -8,7 +8,7 @@ import com.mohsin.vezeeta.core.platform.parcelableCreator
 import kotlinx.android.parcel.Parcelize
 
 
-data class Thumbnail (val path: String, val extension: String): KParcelable {
+data class Thumbnail (val path: String = "", val extension: String = ""): KParcelable {
 
 
 

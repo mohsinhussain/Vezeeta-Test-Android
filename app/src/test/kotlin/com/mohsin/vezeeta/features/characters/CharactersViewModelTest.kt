@@ -6,7 +6,7 @@ import com.mohsin.vezeeta.core.functional.Either.Right
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.given
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.experimental.runBlocking
 import org.amshove.kluent.shouldEqualTo
 import org.junit.Before
 import org.junit.Test
@@ -16,25 +16,25 @@ class CharactersViewModelTest : AndroidTest() {
 
     private lateinit var charactersViewModel: CharactersViewModel
 
-    @Mock private lateinit var getMovies: GetMovies
+    @Mock private lateinit var getCharacter: GetCharacter
 
     @Before
     fun setUp() {
-        charactersViewModel = CharactersViewModel(getMovies)
+        charactersViewModel = CharactersViewModel(getCharacter)
     }
 
-    @Test fun `loading movies should update live data`() {
-        val moviesList = listOf(Movie(0, "IronMan"), Movie(1, "Batman"))
-        given { runBlocking { getMovies.run(eq(any())) } }.willReturn(Right(moviesList))
+    @Test fun `loading characters should update live data`() {
+        val characterList = listOf(CharacterEntity(0, "IronMan"), CharacterEntity(1, "Superman"))
+        given { runBlocking { getCharacter.run(eq(any())) } }.willReturn(Right(characterList))
 
-        charactersViewModel.movies.observeForever {
+        charactersViewModel.characters.observeForever {
             it!!.size shouldEqualTo 2
             it[0].id shouldEqualTo 0
-            it[0].poster shouldEqualTo "IronMan"
+            it[0].name shouldEqualTo "IronMan"
             it[1].id shouldEqualTo 1
-            it[1].poster shouldEqualTo "Batman"
+            it[1].name shouldEqualTo "Superman"
         }
 
-        runBlocking { charactersViewModel.loadMovies() }
+        runBlocking { charactersViewModel.loadCharacters(0, "") }
     }
 }

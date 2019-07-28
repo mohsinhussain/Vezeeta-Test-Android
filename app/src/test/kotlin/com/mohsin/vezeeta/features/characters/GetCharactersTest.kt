@@ -7,27 +7,26 @@ import com.mohsin.vezeeta.core.interactor.UseCase
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.verifyNoMoreInteractions
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
 
-class GetMoviesTest : UnitTest() {
+class GetCharactersTest : UnitTest() {
 
-    private lateinit var getMovies: GetMovies
+    private lateinit var getCharacters: GetCharacter
 
     @Mock private lateinit var charactersRepository: CharactersRepository
 
     @Before fun setUp() {
-        getMovies = GetMovies(charactersRepository)
-        given { charactersRepository.movies() }.willReturn(Right(listOf(Movie.empty())))
+        getCharacters = GetCharacter(charactersRepository)
+        given { charactersRepository.characters(0, "") }.willReturn(Right(listOf(CharacterEntity())))
     }
 
     @Test fun `should get data from repository`() {
-        runBlocking { getMovies.run(UseCase.None()) }
+        runBlocking { getCharacters.run(GetCharacter.Params(0, "")) }
 
-        verify(charactersRepository).movies()
+        verify(charactersRepository).characters(0, "")
         verifyNoMoreInteractions(charactersRepository)
     }
 }

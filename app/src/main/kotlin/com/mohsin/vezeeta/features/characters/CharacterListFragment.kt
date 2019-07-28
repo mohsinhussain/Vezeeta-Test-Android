@@ -47,7 +47,7 @@ class CharacterListFragment : BaseFragment() {
         appComponent.inject(this)
         setHasOptionsMenu(true)
         charactersViewModel = viewModel(viewModelFactory) {
-            observe(movies, ::renderMoviesList)
+            observe(characters, ::renderMoviesList)
             failure(failure, ::handleFailure)
         }
 
@@ -99,6 +99,15 @@ class CharacterListFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         initializeView()
         loadMoviesList()
+    }
+
+    override fun onBackPressed() {
+        if (!searchView!!.isIconified()) {
+            searchView!!.setIconified(true)
+            return
+        }
+
+        super.onBackPressed()
     }
 
 

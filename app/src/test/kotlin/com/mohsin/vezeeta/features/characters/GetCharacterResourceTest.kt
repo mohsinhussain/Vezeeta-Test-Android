@@ -6,14 +6,15 @@ import com.mohsin.vezeeta.core.functional.Either.Right
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.verifyNoMoreInteractions
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
 
 class GetCharacterResourceTest : UnitTest() {
 
-    private val MOVIE_ID = 1
+    private val CHAR_ID = 1
+    private val RESOURCE_TYPE = "comics"
 
     private lateinit var getCharacterResource: GetCharacterResource
 
@@ -21,13 +22,13 @@ class GetCharacterResourceTest : UnitTest() {
 
     @Before fun setUp() {
         getCharacterResource = GetCharacterResource(charactersRepository)
-        given { charactersRepository.movieDetails(MOVIE_ID) }.willReturn(Right(MovieDetails.empty()))
+        given { charactersRepository.characterReources(CHAR_ID, RESOURCE_TYPE) }.willReturn(Right(listOf(ResourceEntity())))
     }
 
     @Test fun `should get data from repository`() {
-        runBlocking { getCharacterResource.run(GetCharacterResource.Params(MOVIE_ID)) }
+        runBlocking { getCharacterResource.run(GetCharacterResource.Params(CHAR_ID, RESOURCE_TYPE)) }
 
-        verify(charactersRepository).movieDetails(MOVIE_ID)
+        verify(charactersRepository).characterReources(CHAR_ID, RESOURCE_TYPE)
         verifyNoMoreInteractions(charactersRepository)
     }
 }

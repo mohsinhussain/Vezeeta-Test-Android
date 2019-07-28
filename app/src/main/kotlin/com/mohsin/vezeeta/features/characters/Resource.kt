@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.mohsin.vezeeta.core.platform.KParcelable
 
-data class Resource (val collectionURI: String) : KParcelable {
+data class Resource (val collectionURI: String = "") : KParcelable {
 
     constructor(parcel: Parcel) : this(parcel.readString())
 
