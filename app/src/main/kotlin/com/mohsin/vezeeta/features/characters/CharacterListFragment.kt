@@ -15,9 +15,16 @@
  */
 package com.mohsin.vezeeta.features.characters
 
+import android.app.SearchManager
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
 import androidx.annotation.StringRes
 import android.view.View
+import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mohsin.vezeeta.core.platform.BaseFragment
@@ -43,6 +50,9 @@ class CharacterListFragment : BaseFragment() {
     @Inject lateinit var moviesAdapter: MoviesAdapter
     private var scrollListener: EndlessRecyclerViewScrollListener? = null
     var offSet = 0
+    var nameStartsWith = ""
+
+    private var searchView: SearchView? = null
 
     private lateinit var moviesViewModel: MoviesViewModel
 
@@ -52,12 +62,62 @@ class CharacterListFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
         appComponent.inject(this)
 
+        setHasOptionsMenu(true)
+
         moviesViewModel = viewModel(viewModelFactory) {
             observe(movies, ::renderMoviesList)
             failure(failure, ::handleFailure)
         }
 
 
+    }
+
+    private fun resetListView(){
+        offSet = 0
+        moviesViewModel.loadCharacters(offSet, nameStartsWith)
+        moviesAdapter.collection.clear()
+        moviesAdapter.notifyDataSetChanged()
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater!!.inflate(R.menu.options_menu, menu)
+
+        // Associate searchable configuration with the SearchView
+        val searchManager = activity!!.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        searchView = menu!!.findItem(R.id.search)
+                .actionView as SearchView
+        searchView!!.setSearchableInfo(searchManager
+                .getSearchableInfo(activity!!.componentName))
+        searchView!!.maxWidth = Integer.MAX_VALUE
+
+        searchView!!.setOnCloseListener {
+            nameStartsWith = ""
+            resetListView()
+            return@setOnCloseListener false
+        }
+
+        // listening to search query text change
+        searchView!!.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                Log.i("onQueryTextChange", query)
+                nameStartsWith = query
+                resetListView()
+                // filter recycler view when query submitted
+//                viewAdapter.getFilter().filter(query)
+                return false
+            }
+
+            override fun onQueryTextChange(query: String): Boolean {
+                // filter recycler view when text is changed
+//                viewAdapter.getFilter().filter(query)
+                nameStartsWith = query
+                resetListView()
+                Log.i("onQuerySubmitted", query)
+                return false
+            }
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -91,7 +151,7 @@ class CharacterListFragment : BaseFragment() {
         movieList.visible()
         showProgress()
 //        moviesViewModel.loadMovies()
-        moviesViewModel.loadCharacters(offSet)
+        moviesViewModel.loadCharacters(offSet, nameStartsWith)
     }
 
     private fun renderMoviesList(movies: List<MovieView>?) {

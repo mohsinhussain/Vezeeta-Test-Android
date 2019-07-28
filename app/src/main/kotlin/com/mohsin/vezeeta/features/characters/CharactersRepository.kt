@@ -27,30 +27,40 @@ import javax.inject.Inject
 
 interface CharactersRepository {
     fun movies(): Either<Failure, List<Movie>>
-    fun characters(limit: Int): Either<Failure, List<CharacterEntity>>
+    fun characters(offSet: Int, nameStartsWith: String): Either<Failure, List<CharacterEntity>>
     fun characterReources(characterId: Int, resource: String): Either<Failure, List<ResourceEntity>>
 
     class Network
     @Inject constructor(private val networkHandler: NetworkHandler, private val offlineService: CharactersOfflineService,
                         private val onlineService: CharactersService) : CharactersRepository {
-        override fun characters(offset: Int): Either<Failure, List<CharacterEntity>> {
+        override fun characters(offset: Int, nameStartsWith: String): Either<Failure, List<CharacterEntity>> {
             return when (networkHandler.isConnected) {
                 true -> request(
-                        onlineService.characters(offset), {
+                        if(nameStartsWith.contentEquals("")){
+                            onlineService.characters(offset)
+                        }
+                                else{
+                            onlineService.characterSearch(offset, nameStartsWith)
+                        }
+                        , {
                     it.data.results.map {
                         saveCharacterToDB(it)
                     }
                 },
                         CharactersResponse())
                 false, null -> {
-                    val list: List<CharacterEntity> = offlineService.characters(offset)
-                    if(list.size>0){
-                        println(list.size.toString() + " characters loaded")
-                        return Right(list)
-
+                    var list: List<CharacterEntity> = if(nameStartsWith.contentEquals("")){
+                        offlineService.characters(offset)
+                    } else{
+                        offlineService.characterSearch(offset, nameStartsWith)
                     }
-                    else{
-                        return Left(NetworkConnection)
+
+                    return if(list.size>0){
+                        println(list.size.toString() + " characters loaded")
+                        Right(list)
+
+                    } else{
+                        Left(NetworkConnection)
                     }
 
                 }//Left(NetworkConnection)

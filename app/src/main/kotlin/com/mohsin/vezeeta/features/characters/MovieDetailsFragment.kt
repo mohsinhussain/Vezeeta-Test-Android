@@ -18,6 +18,8 @@ package com.mohsin.vezeeta.features.characters
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -140,6 +142,8 @@ class MovieDetailsFragment : BaseFragment() {
 //        }
     }
 
+
+
     private fun initializeView() {
         comicsList.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         comicsList.adapter = comicsAdapter
@@ -156,6 +160,9 @@ class MovieDetailsFragment : BaseFragment() {
 //        comicsAdapter.clickListener = { movie, navigationExtras ->
 //            navigator.showMovieDetails(activity!!, movie, navigationExtras) }
     }
+
+
+
 
     override fun onBackPressed() {
         movieDetailsAnimator.fadeInvisible(scrollView, movieDetails)

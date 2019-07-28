@@ -6,7 +6,7 @@ import javax.inject.Inject
 class GetCharacter
 @Inject constructor(private val charactersRepository: CharactersRepository) : UseCase<List<CharacterEntity>, GetCharacter.Params>() {
 
-    override suspend fun run(params: Params) = charactersRepository.characters(params.offset)
+    override suspend fun run(params: Params) = charactersRepository.characters(params.offset, params.nameStartsWith)
 
-    data class Params(val offset: Int)
+    data class Params(val offset: Int, val nameStartsWith: String)
 }

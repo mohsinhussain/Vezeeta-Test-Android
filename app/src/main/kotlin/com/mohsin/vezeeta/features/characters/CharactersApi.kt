@@ -36,6 +36,7 @@ internal interface CharactersApi {
     }//http://gateway.marvel.com/v1/public/characters/1009144/comics
 
     @GET(MOVIES) fun movies(): Call<List<MovieEntity>>
-    @GET(CHARACTERS) fun characters(@Query("offset") limit: Int): Call<CharactersResponse>
+    @GET(CHARACTERS) fun characters(@Query("offset") offSet: Int): Call<CharactersResponse>
+    @GET(CHARACTERS) fun characterSearch(@Query("offset") offSet: Int, @Query("nameStartsWith") nameStartsWith: String): Call<CharactersResponse>
     @GET(RESOURCES) fun characterResource(@Path(PARAM_CHARACTER_ID) characterId: Int, @Path(PARAM_RESOURCE) resource: String): Call<ResourceResponse>
 }

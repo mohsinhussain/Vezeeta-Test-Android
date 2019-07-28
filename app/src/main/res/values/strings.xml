@@ -12,4 +12,5 @@
     <string name="detail">Detail</string>
     <string name="wiki">Wiki</string>
     <string name="comiclink">Comiclink</string>
+    <string name="search_character">Search Character</string>
 </resources>

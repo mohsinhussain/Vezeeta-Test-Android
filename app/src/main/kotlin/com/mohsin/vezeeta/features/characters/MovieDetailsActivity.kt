@@ -18,6 +18,8 @@ package com.mohsin.vezeeta.features.characters
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import com.mohsin.vezeeta.R
 import com.mohsin.vezeeta.core.platform.BaseActivity
 
 class MovieDetailsActivity : BaseActivity() {
@@ -42,6 +44,7 @@ class MovieDetailsActivity : BaseActivity() {
         onBackPressed()
         return true
     }
+
 
     override fun fragment() = MovieDetailsFragment.forMovie(intent.getParcelableExtra(INTENT_EXTRA_PARAM_CHARACTER))
 }

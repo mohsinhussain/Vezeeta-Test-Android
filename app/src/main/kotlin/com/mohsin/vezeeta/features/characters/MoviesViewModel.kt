@@ -31,7 +31,7 @@ class MoviesViewModel
 //    }
 
 
-    fun loadCharacters(offset: Int) = getCharacters(GetCharacter.Params(offset)) {
+    fun loadCharacters(offset: Int, nameStartsWith: String) = getCharacters(GetCharacter.Params(offset, nameStartsWith)) {
         it.either(::handleFailure, ::handleCharactersList)
     }
 

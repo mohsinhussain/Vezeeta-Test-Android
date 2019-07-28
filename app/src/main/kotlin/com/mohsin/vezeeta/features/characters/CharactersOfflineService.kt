@@ -24,6 +24,7 @@ class CharactersOfflineService
 @Inject constructor(val charactersDao: CharactersDao, val resourceDao: ResourceDao) {
 
     fun characters(offset: Int) = charactersDao.getAllCharacters(offset)
+    fun characterSearch(offset: Int, nameStartsWith: String) = charactersDao.getCharactersSearched(offset, "$nameStartsWith%")
     fun addCharacter(character: CharacterEntity) = charactersDao.addCharacter(character).toInt()
 
     fun resources(characterId: Int, resourceType: String) = resourceDao.getAllResources(characterId, resourceType)

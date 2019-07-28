@@ -17,6 +17,8 @@ package com.mohsin.vezeeta.features.characters
 
 import android.content.Context
 import android.content.Intent
+import android.view.Menu
+import com.mohsin.vezeeta.R
 import com.mohsin.vezeeta.core.platform.BaseActivity
 
 class MoviesActivity : BaseActivity() {
@@ -24,6 +26,9 @@ class MoviesActivity : BaseActivity() {
     companion object {
         fun callingIntent(context: Context) = Intent(context, MoviesActivity::class.java)
     }
+
+
+
 
     override fun fragment() = CharacterListFragment()
 }
