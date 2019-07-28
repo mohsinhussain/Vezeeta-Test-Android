@@ -29,10 +29,7 @@ xmlns:android="http://schemas.android.com/apk/res/android">
         </intent-filter>
     </activity>
 
-    <activity
-        android:name="com.mohsin.vezeeta.features.login.LoginActivity"
-        android:label="@string/login_screen_title">
-    </activity>
+
 
     <activity
         android:name="com.mohsin.vezeeta.features.characters.CharactersActivity"
